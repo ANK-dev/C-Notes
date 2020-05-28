@@ -1,0 +1,28 @@
+# The C Programming Language 2^nd^ Edition --- Anotações
+
+## Table of Contents
+
+* [Chapter 1](./Chapter_1/C_Notes_-_Chapter_1.md#chapter-1)
+  - [1.1 Getting Started](./Chapter_1/C_Notes_-_Chapter_1.md#11-getting-started)
+  - [1.2 Variables and Arithmetic Expressions](./Chapter_1/C_Notes_-_Chapter_1.md#12-variables-and-arithmetic-expressions)
+    + [Exercícios 1.2](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-12)
+  - [1.3 The `for` statement](./Chapter_1/C_Notes_-_Chapter_1.md#13-the-for-statement)
+    + [Exercícios 1.3](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-13)
+  - [1.4 Symbolic Constants](./Chapter_1/C_Notes_-_Chapter_1.md#14-symbolic-constants)
+  - [1.5 Character Input and Output](./Chapter_1/C_Notes_-_Chapter_1.md#15-character-input-and-output)
+    + [1.5.1 File Copying](./Chapter_1/C_Notes_-_Chapter_1.md#151-file-copying)
+      * [Exercícios 1.5.1](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-151)
+    + [1.5.2 Character Counting](./Chapter_1/C_Notes_-_Chapter_1.md#152-character-counting)
+    + [1.5.3 Line Counting](./Chapter_1/C_Notes_-_Chapter_1.md#153-line-counting)
+      * [Exercícios 1.5.3](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-153)
+    + [1.5.4 Word Counting](./Chapter_1/C_Notes_-_Chapter_1.md#154-word-counting)
+      * [Exercícios 1.5.4](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-154)
+  - [1.6 Arrays](./Chapter_1/C_Notes_-_Chapter_1.md#16-arrays)
+    + [Exercícios 1.6](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-16)
+  - [1.7 Functions](./Chapter_1/C_Notes_-_Chapter_1.md#17-functions)
+    + [Exercícios 1.7](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-17)
+  - [1.8 Arguments - Call by Value](./Chapter_1/C_Notes_-_Chapter_1.md#18-arguments---call-by-value)
+  - [1.9 Character Arrays](./Chapter_1/C_Notes_-_Chapter_1.md#19-character-arrays)
+    + [Exercícios 1.9](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-19)
+  - [1.10 External Variables and Scope](./Chapter_1/C_Notes_-_Chapter_1.md#110-external-variables-and-scope)
+    + [Exercícios 1.10](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-110)
