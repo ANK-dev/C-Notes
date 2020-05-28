@@ -1,4 +1,4 @@
-# The C Programming Language 2^nd^ Edition --- Anotações
+# The C Programming Language 2nd Edition --- Anotações
 
 ## Chapter 1
 
@@ -296,8 +296,8 @@ hexadecimal, `%c` p/ caractere, `%s` p/ string e `%%` p/ si próprio.
 
 #### Exercícios 1.2
 
-* [Exercise 1-3](./Chapter_1/Exercise_1-3.c)  
-* [Exercise 1-4](./Chapter_1/Exercise_1-4.c)
+* [Exercise 1-3](./Exercise_1-03.c)  
+* [Exercise 1-4](./Exercise_1-04.c)
 
 -------------------------------------------------------------------------------
 
@@ -342,7 +342,7 @@ apropriado para laços onde a inicialização e o incremento são declarações
 
 #### Exercícios 1.3
 
-* [Exercise 1-5](./Chapter_1/Exercise_1-5.c)
+* [Exercise 1-5](./Exercise_1-05.c)
 
 -------------------------------------------------------------------------------
 
@@ -473,8 +473,8 @@ de `getchar` atingiu ou não o final do arquivo.
 
 ##### Exercícios 1.5.1
 
-* [Exercise 1-6](./Chapter_1/Exercise_1-6.c)
-* [Exercise 1-7](./Chapter_1/Exercise_1-7.c)
+* [Exercise 1-6](./Exercise_1-06.c)
+* [Exercise 1-7](./Exercise_1-07.c)
 
 -------------------------------------------------------------------------------
 
@@ -578,9 +578,9 @@ Algumas observações podem ser feitas a respeito deste programa:
 
 ##### Exercícios 1.5.3
 
-* [Exercise 1-8](./Chapter_1/Exercise_1-8.c)
-* [Exercise 1-9](./Chapter_1/Exercise_1-9.c)
-* [Exercise 1-10](./Chapter_1/Exercise_1-10.c)
+* [Exercise 1-8](./Exercise_1-08.c)
+* [Exercise 1-9](./Exercise_1-09.c)
+* [Exercise 1-10](./Exercise_1-10.c)
 
 -------------------------------------------------------------------------------
 
@@ -659,7 +659,7 @@ e muitos outros casos.
 
 -------------------------------------------------------------------------------
 
-* [Exercise 1-12](./Chapter_1/Exercise_1.12.c)
+* [Exercise 1-12](./Exercise_1.12.c)
 
 -------------------------------------------------------------------------------
 
@@ -740,8 +740,8 @@ será discutida no capítulo 4, é uma alternativa para essa construção.
 
 #### Exercícios 1.6
 
-* [Exercise 1-13](./Chapter_1/Exercise_1-13.c)
-* [Exercise 1-14](./Chapter_1/Exercise_1-14.c)
+* [Exercise 1-13](./Exercise_1-13.c)
+* [Exercise 1-14](./Exercise_1-14.c)
 
 -------------------------------------------------------------------------------
 
@@ -880,7 +880,7 @@ bem-escolhidos, porém, são boa documentação.
 
 #### Exercícios 1.7
 
-* [Exercise 1-15](./Chapter_1/Exercise_1.15.c)
+* [Exercise 1-15](./Exercise_1.15.c)
 
 -------------------------------------------------------------------------------
 
@@ -1017,10 +1017,10 @@ segurança.
 
 #### Exercícios 1.9
 
-* [Exercise 1-16](./Chapter_1/Exercise_1-16.c)
-* [Exercise 1-17](./Chapter_1/Exercise_1-17.c)
-* [Exercise 1-18](./Chapter_1/Exercise_1-18.c)
-* [Exercise 1-19](./Chapter_1/Exercise_1-19.c)
+* [Exercise 1-16](./Exercise_1-16.c)
+* [Exercise 1-17](./Exercise_1-17.c)
+* [Exercise 1-18](./Exercise_1-18.c)
+* [Exercise 1-19](./Exercise_1-19.c)
 
 -------------------------------------------------------------------------------
 
@@ -1151,11 +1151,11 @@ de que ele destrói a generalização e versatilidade das duas funções.
 
 #### Exercícios 1.10
 
-* [Exercise 1-20](./Chapter_1/Exercise_1-20.c)
-* [Exercise 1-21](./Chapter_1/Exercise_1-21.c)
-* [Exercise 1-22](./Chapter_1/Exercise_1-22.c)
-* [Exercise 1-23](./Chapter_1/Exercise_1-23.c)
-* [Exercise 1-24](./Chapter_1/Exercise_1-24.c)
-* [Exercise 1-25](./Chapter_1/Exercise_1-25.c)
+* [Exercise 1-20](./Exercise_1-20.c)
+* [Exercise 1-21](./Exercise_1-21.c)
+* [Exercise 1-22](./Exercise_1-22.c)
+* [Exercise 1-23](./Exercise_1-23.c)
+* [Exercise 1-24](./Exercise_1-24.c)
+* [Exercise 1-25](./Exercise_1-25.c)
 
 -------------------------------------------------------------------------------

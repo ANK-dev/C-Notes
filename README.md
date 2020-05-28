@@ -1,4 +1,4 @@
-# The C Programming Language 2^nd^ Edition --- Notes
+# The C Programming Language 2nd Edition --- Notes
 
 <p align="center">
     <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSxN9CxyKoxQdHXeY7uPQicBa4ibDzmEWMSV07DPv4LFEkLi5T-">
