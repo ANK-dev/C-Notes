@@ -127,9 +127,35 @@ Dentre os diversos tipos de dados em C, podemos também citar:
 
 O tamanho desses objetos depende da máquina.
 
-* `lower = 0;`  }
-* `upper = 300;`} Declarações de atribuição. Atribui as variáveis os seus
-* `step = 20;`  } valores iniciais.
+<!-- Preview Tabela HTML ===============================
+ ┌─────────────────┬───┬──────────────────────────────┐
+ │ • `lower = 0`   │   │                              │
+ ├─────────────────┤ ⎫ │ Declarações de atribuição.   │
+ │ • `upper = 300` │ ⎬ │ Atribui às variáveis os seus │
+ ├─────────────────┤ ⎭ │ valores iniciais.            │
+ │ • `step = 20`   │   │                              │
+ └─────────────────┴───┴──────────────────────────────┘
+==================================================== -->
+
+<!-- Tabela HTML =================================== -->
+<table>
+  <tbody>
+    <tr>
+        <td>• <code>lower = 0</code></td>
+        <td rowspan="3"><b>⎫<br>⎬<br>⎭</b></td>
+        <td rowspan="3">Declarações de atribuição.<br>
+                        Atribui às variáveis os seus<br>
+                        valores iniciais
+    </tr>
+    <tr>
+        <td>• <code>upper = 300</code></td>
+    </tr>
+    <tr>
+        <td>• <code>step = 20</code></td>
+    </tr>
+  </tbody>
+</table>
+<!-- =============================================== -->
 
 Para o cálculo de cada linha da tabela é usado um laço `while`, que repete uma
 vez por linha da saída.
@@ -995,11 +1021,27 @@ Para toda string constant como `"hello\n"`, que aparace em um programa em C,
 esta é armazenada em um vetor de caracteres contendo os caracteres da string e
 terminado com um `'\0'`.
 
-<pre style="text-align: center; font-weight: bold; line-height: 1;">
+<!-- HTML Code Preview ======================
 ┌─────┬─────┬─────┬─────┬─────┬──────┬──────┐
 │  h  │  e  │  l  │  l  │  o  │  \n  │  \0  │
 └─────┴─────┴─────┴─────┴─────┴──────┴──────┘
-</pre>
+========================================= -->
+
+<!-- HTML Code ============================================= -->
+<p align="center">
+  <code>┌─────┬─────┬─────┬─────┬─────┬──────┬──────┐</code>
+  <br><code>│
+     &emsp;h &emsp;│
+     &emsp;e &emsp;│
+     &emsp;l &emsp;│
+     &emsp;l &emsp;│
+     &emsp;o &emsp;│
+    &emsp;\n &emsp;│
+    &emsp;\0 &emsp;│
+  </code><br>
+  <code>└─────┴─────┴─────┴─────┴─────┴──────┴──────┘</code>
+</p>
+<!-- ======================================================= -->
 
 A especificação do formato `%s` do `printf` espera que o argumento seja uma
 string representada desta forma. `copy` também depende do fato de que o seu
