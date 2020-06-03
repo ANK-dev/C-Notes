@@ -18,6 +18,8 @@ main() {
         spacesToTab(N, line, len, new_line);
         printf("\n%s\n", new_line);
     }
+
+    return 0;
 }
 
 int getline(char line[], int maxline) {

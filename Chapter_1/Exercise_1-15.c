@@ -20,6 +20,8 @@ main(){
         printTable(fahr, celsius, 0);
         fahr = fahr + STEP;
     }
+    
+    return 0;
 }
 
 float fahrToCelsius(float fahr){

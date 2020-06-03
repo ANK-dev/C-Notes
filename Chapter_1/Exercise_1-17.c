@@ -16,6 +16,7 @@ main()
         if (len > min) {
             printf("\n\nLength: %d. %s\n", len, line);
         }
+
     return 0;
 }
 

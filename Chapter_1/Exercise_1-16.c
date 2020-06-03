@@ -20,6 +20,7 @@ main()
         }
     if (max > 0)    /* there was a line */
         printf("\nLength: %d. %s\n", max, longest);
+    
     return 0;
 }
 

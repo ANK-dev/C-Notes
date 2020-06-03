@@ -21,7 +21,7 @@ main()
         printf("\n%s\n", new_line);
     }
 
-
+    return 0;
 }
 
 void fold(char input_line[], int line_length, int fold_column, char output_line[])

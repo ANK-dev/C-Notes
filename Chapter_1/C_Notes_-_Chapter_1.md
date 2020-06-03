@@ -664,8 +664,8 @@ do `else` é executada.
 
 ##### Exercícios 1.5.4
 
->*Exercise 1-11*: How would you test the word count program? What kinds of
->input are most likely to uncover bugs if there are any?
+> *Exercise 1-11*: How would you test the word count program? What kinds of
+> input are most likely to uncover bugs if there are any?
 
 **R.**: A realização de testes de unidade pode ajudar a encontrar bugs ou casos
 previamente não considerados (*edge cases*). O uso de palavras grandes,
@@ -849,7 +849,7 @@ int power();                    /* uma declaração mas não um protótipo */
 (Nomes de parâmetros são necessários em uma definição, mas opcionais em uma
 declaração individual.)
 
-Como um caso especial, o protótipo para um função se parâmetros usa `(void)`,
+Como um caso especial, o protótipo para uma função sem parâmetros usa `(void)`,
 pois parênteses vazios já indicam uma declaração não-prototípica. Então
 `int main(void)` é um protótipo, mas `int main()` não é.
 
