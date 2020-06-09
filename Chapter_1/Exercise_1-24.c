@@ -1,425 +1,384 @@
 #include <stdio.h>
+
 #define MAXLINE 1000
-#define  IN 1
-#define OUT 0
+#define TRUE 1
+#define FALSE 0
 
-/*==== Globals ==============================================================*/
+/*==== Global Variables =====================================================*/
+int c; /* input stream character */
 
-int parenthesis_depth_level = 0;
-int brackets_depth_level = 0;
-int braces_depth_level = 0;
+int PAREN_DEPTH_LVL = 0;
+int BRACK_DEPTH_LVL = 0;
+int BRACE_DEPTH_LVL = 0;
 
-int line_number = 1;
-
-/*===========================================================================*/
-
+int LINE_NUMBER = 1;
+int COLUMN_NUMBER = 1;
+int LINE_END    = FALSE;
 
 /*==== Program States =======================================================*/
 
-int   PARENTHESIS = OUT;
-int      BRACKETS = OUT;
-int        BRACES = OUT;
-int SINGLE_QUOTES = OUT;
-int DOUBLE_QUOTES = OUT;
-int        ESCAPE = OUT;
-int       COMMENT = OUT;
-int      FOR_LOOP = OUT;
+int PAREN    = FALSE;
+int BRACK    = FALSE;
+int BRACE    = FALSE;
+int S_QUOTE  = FALSE;
+int D_QUOTE  = FALSE;
+int ESCAPE   = FALSE;
+int COMMENT  = FALSE;
+int FOR_LOOP = FALSE;
+
+/*==== Function Prototypes ==================================================*/
+
+/*---- Error Checking -------------------------------------------------------*/
+void chkForLoop();
+void chkParen();
+void chkBrack();
+void chkBrace();
+void chkQuote();
+void chkEscape();
+void chkComment();
+
+/*---- Error Printing -------------------------------------------------------*/
+void printError(int line_number, int column_number, int error_id);
 
 /*===========================================================================*/
 
-int getLine(char input_line[], int maxline);
-
-void checkParenthesis(char input_line[], int line_length);
-void checkBrackets(char input_line[], int line_length);
-void checkBraces(char input_line[], int line_length);
-void checkQuotes(char input_line[], int line_length);
-void checkEscapes(char input_line[], int line_length);
-void checkComments(char input_line[], int line_length);
-
-int insideForLoopDeclaration(char input_line[], int index);
-
-void printError(int line_number, int column, int error_id);
-
-/* syntax checker - checks basic syntax errors in a C source code */
-
-int main(void)
+int main()
 {
-    int length;
-    char line[MAXLINE];
-    while ((length = getLine(line, MAXLINE)) > 0) {
-        checkParenthesis(line, length);
-        checkBrackets(line, length);
-        checkBraces(line, length);
-        checkQuotes(line, length);
-        checkEscapes(line, length);
-        checkComments(line, length);
-        ++line_number;
+    while( (c = getchar()) != EOF ) {
+        chkForLoop();
+        chkParen();
+        chkBrack();
+        chkBrace();
+        chkQuote();
+        chkEscape();
+        chkComment();
+        ++COLUMN_NUMBER;
+        if (c == '\n') {
+            ++LINE_NUMBER;
+            COLUMN_NUMBER = 1;
+            LINE_END = FALSE;
+        }
     }
-    
+    printf("End of file");
     return 0;
-
 }
 
-int getLine(char input_line[], int maxline)
+void chkForLoop()
 {
-    int c, i;
+    if ( !(COMMENT || S_QUOTE || D_QUOTE) ) {
+        /* i = 1, the first character was already gotten */
+        int i = 1, auxbuffer[5];
 
-    for (i = 0; i < maxline - 1 && ((c=getchar()) != '\n') && (c != EOF); ++i) {
-        input_line[i] = c;
-    }
+        auxbuffer[0] = c;
 
-    if (c == '\n') {
-        input_line[i++] = c;
-    }
-
-    input_line[i] = '\0';            /* terminates the string */
-
-    return i;
-}
-
-void checkParenthesis(char input_line[], int line_length)
-{
-    int i;
-    for (i = 0; i < line_length; ++i) {
-        
-        /* parenthesis aren't checked if inside comment, quotes or `for` loops */
-        if ( !(COMMENT || SINGLE_QUOTES || DOUBLE_QUOTES || FOR_LOOP) ) {
-
-            switch (input_line[i]) {
-                
-                case ';':
-                    if (PARENTHESIS == IN) {
-                        printError(line_number, i + 1, 0);  /* "E00: unmatched_left_parenthesis --> ( ?" */
-                    }
-                    break;
-
-                case '(':
-                    if (!PARENTHESIS) {
-                        PARENTHESIS = IN;
-                        ++parenthesis_depth_level;
-                    } else {
-                        ++parenthesis_depth_level;
-                    }
-                    break;
-
-                case ')':
-                    if (PARENTHESIS) {
-                        --parenthesis_depth_level;
-
-                        if (parenthesis_depth_level <= 0) {
-                            PARENTHESIS = OUT;
-                        }
-
-                    } else {
-                        --parenthesis_depth_level;  /* if parenthesis level < 0 then it's unbalanced */
-                        printError(line_number, i + 1, 1); /* "E01: unmatched_right_parenthesis --> ? )" */
-                    }
-                    break;
-            
+        /* get the next 4 characters, check, and put them back into stdin */
+        if (!FOR_LOOP) {
+            /* check EOF or not? */
+            while(i < 5) {
+                auxbuffer[i++] = getchar();
             }
-        
-        }
-    
-    }
-}
 
-void checkBrackets(char input_line[], int line_length)
-{
-    int i;
-    for (i = 0; i < line_length; ++i) {
-        
-        /* brackets aren't checked if inside comments or quotes */
-        if ( !(COMMENT || SINGLE_QUOTES || DOUBLE_QUOTES) ) {
-
-            switch (input_line[i]) {
-                
-                case ';':
-                    if (BRACKETS) {
-                        printError(line_number, i + 1, 2); /* "E02: unmatched_left_bracket --> [ ?" */
-                    }
-                    break;
-
-                case '[':
-                    if (!BRACKETS) {
-                        BRACKETS = IN;
-                        ++brackets_depth_level;
-                    } else {
-                        ++brackets_depth_level;
-                    }
-                    break;
-
-                case ']':
-                    if (BRACKETS) {
-                        --brackets_depth_level;
-
-                        if (brackets_depth_level <= 0) {
-                            BRACKETS = OUT;
-                        }
-
-                    } else {
-                        --brackets_depth_level; /* if brackets level < 0 then it's unbalanced */
-                        printError(line_number, i + 1, 3); /* "E03: unmatched_right_bracket --> ? ]" */
-                    }
-                    break;
-            
+            /* put characters back into stream and check only the buffer */
+            while(i > 1) {
+                ungetc(auxbuffer[--i], stdin);
             }
-        
-        }
-    
-    }
-}
 
-void checkBraces(char input_line[], int line_length)
-{
-    int i;
-    for (i = 0; i < line_length; ++i) {
-
-        /* braces aren't checked if inside comments or quotes */
-        if ( !(COMMENT || SINGLE_QUOTES || DOUBLE_QUOTES) ) {
-            
-            switch (input_line[i]) {
-
-                case '{':
-                    if (!BRACES) {
-                        BRACES = IN;
-                        ++braces_depth_level;   /* check if it's possible to add E04! */
-                    } else {
-                        ++braces_depth_level;
-                    }
-                    break;
-
-                case '}':
-                    if (BRACES) {
-                        --braces_depth_level;
-
-                        if (braces_depth_level <= 0) {
-                            BRACES = OUT;
-                        }
-
-                    } else {
-                        --braces_depth_level; /* if braces level < 0 then it's unbalanced */
-                        printError(line_number, i + 1, 5); /* "E05: unmatched_right_brace --> ? }" */
-                    }
-                    break;
-            
+            if (
+                (
+                    auxbuffer[0] == 'f'
+                 && auxbuffer[1] == 'o'
+                 && auxbuffer[2] == 'r'
+                 && auxbuffer[3] == ' '
+                 && auxbuffer[4] == '('
+                )
+                ||
+                (
+                    auxbuffer[0] == 'f'
+                 && auxbuffer[1] == 'o'
+                 && auxbuffer[2] == 'r'
+                 && auxbuffer[3] == '('
+                )
+            ) {
+                FOR_LOOP = TRUE;
             }
-        
-        }
 
+        } else if (c == ')') {
+            FOR_LOOP = FALSE;
+        }
     }
 }
 
-void checkQuotes(char input_line[], int line_length)
+void chkParen()
 {
-    int line_end = 0;
-    int i;
-    for (i = 0; i < line_length; ++i) {
-
-        /* quotes aren't checked if inside comments or escape chars */
-        if ( !(COMMENT || ESCAPE) ) {
-
-            switch (input_line[i]) {
-                
-                case ';':
-                    if ( !(SINGLE_QUOTES || DOUBLE_QUOTES) ) {
-                        line_end = 1;
-                    }
-                    break;
-
-                case '\'':
-                    if (!line_end) {
-                        /* flip state -> if inside quote, then outside and vice-versa */
-                        SINGLE_QUOTES = !SINGLE_QUOTES;
-                    } else {
-                        printError(line_number, i + 1, 6); /* E06: unbalanced_single_quote --> ?'? */
-                    }
-                    break;
-                
-                case '"':
-                    if (!line_end) {
-                        /* flip state -> if inside quote, then outside and vice-versa */
-                        DOUBLE_QUOTES = !DOUBLE_QUOTES;
-                    } else {
-                        printError(line_number, i + 1, 7); /* E07: unbalanced_double_quote --> ?"? */
-                    }
-                    break;
-            
-            }
-        
-        }
-    
-    }
-}
-
-void checkComments(char input_line[], int line_length)
-{
-    int i;
-    for (i = 0; i < line_length; ++i) {
-        
-        /* comments aren't checked if inside quotes */
-        if ( !(SINGLE_QUOTES || DOUBLE_QUOTES) ) {
-
-            switch (input_line[i]) {
-
-                /* 
-                 *  special case: you can have as many begin-comment delimiters
-                 *  as you want, but since C comments don't nest, you can only
-                 *  have one end-comment delimtier
-                 */
-                case '/':
-                    if (input_line[i + 1] == '*') {
-                        COMMENT = IN;
-                    }
-                    break;
-
-                case '*':
-                    if (input_line[i + 1] == '/') {
-                        if (COMMENT) {
-                            COMMENT = OUT;
-                        } else {
-                            printError(line_number, i + 10, 10); /* E10: extra_right_comment_delimiter --> ?? * / */
-                        }
-                    }
-            }
-        }
-
-    }
-}
-
-void checkEscapes(char input_line[], int line_length) {
-    int i;
-    for (i = 0; i < line_length; ++i) {
-        
-        /* escape chars aren't checked if inside comments */
-        if (!COMMENT) {
-            if (input_line[i++] == '\\') {
-                int match = 0;
-                ESCAPE = IN;
-
-                switch (input_line[i++]) {
-                    case  'a':  /* alert bell */
-                    case  'b':  /* backspace */
-                    case  'f':  /* page break */
-                    case  'n':  /* newline */
-                    case  'r':  /* carriage return */
-                    case  't':  /* horizontal tab */
-                    case  'v':  /* vertical tab */
-                    case '\\':  /* backspace */
-                    case '\'':  /* single quote */
-                    case  '"':  /* double quote */
-                    case  '?':  /* question mark */
-                        ESCAPE = OUT;
-                        break;
-                    
-                    /*-------------- octal byte case (0 - 377) --------------*/
-                    case '0':
-                    case '1':
-                    case '2':
-                    case '3':
-                    case '4':
-                    case '5':
-                    case '6':
-                    case '7':
-
-                        while (input_line[i] >= '0' && input_line[i] <= '7') {
-                            ++match;
-                            ++i;
-
-                            if (match == 3) {
-                                break;
-                            }
-
-                        }
-
-                        /* no invalid sequence possible as octals can be
-                        shortened by following with a non-octal digit or
-                        character e.g. \2192 -> \21(octal) + 92(decimal) */
-
-                        ESCAPE = OUT;
-                        break;
-                    /*-------------------------------------------------------*/
-
-                    case 'x': /* hex byte (00-FF) */
-
-                        while (
-                                (input_line[i] >= '0' && input_line[i] <= '9') 
-                             || (input_line[i] >= 'A' && input_line[i] <= 'F')
-                             || (input_line[i] >= 'a' && input_line[i] <= 'f')
-                        ) {
-                            ++match;
-                            ++i;
-                        }
-
-                        if (match != 2) {
-                            /* E08: invalid_escape_sequence --> \??? */
-                            printError(line_number, i + 1, 8); 
-                        }
-
-                        ESCAPE = OUT;
-                        break;
-
-                    case 'u': /* unicode code point up to FFFF hex */
-
-                        while (
-                                (input_line[i] >= '0' && input_line[i] <= '9') 
-                             || (input_line[i] >= 'A' && input_line[i] <= 'F')
-                             || (input_line[i] >= 'a' && input_line[i] <= 'f')
-                        ) {
-                            ++match;
-                            ++i;
-
-                            if (match == 4) {
-                                break;
-                            }
-
-                        }
-
-                        if (match != 4) {
-                            /* E08: invalid_escape_sequence --> \??? */
-                            printError(line_number, i + 1, 8); 
-                        }
-
-                        ESCAPE = OUT;
-                        break;
-
-                    case 'U': /* unicode in hex (8 hex digits) */
-
-                        while (
-                                (input_line[i] >= '0' && input_line[i] <= '9') 
-                             || (input_line[i] >= 'A' && input_line[i] <= 'F')
-                             || (input_line[i] >= 'a' && input_line[i] <= 'f')
-                        ) {
-                            ++match;
-                            ++i;
-
-                            if (match == 8) {
-                                break;
-                            }
-
-                        }
-
-                        if (match != 8) {
-                            /* E08: invalid_escape_sequence --> \??? */
-                            printError(line_number, i + 1, 8); 
-                        }
-
-                        ESCAPE = OUT;
-                        break;
-
-                    default:
-                        printError(line_number, i + 1, 8); 
-                        break;
-
+    if ( !(COMMENT || S_QUOTE || D_QUOTE || FOR_LOOP) ) {
+        switch (c) {
+            case ';':
+                if (PAREN) {
+                    printError(LINE_NUMBER, COLUMN_NUMBER, 0);
                 }
+                break;
 
+            case '(':
+                ++PAREN_DEPTH_LVL;
+                if (PAREN_DEPTH_LVL > 0) {
+                    PAREN = TRUE;
+                }
+                break;
+
+            case ')':
+                --PAREN_DEPTH_LVL;
+                if (PAREN_DEPTH_LVL == 0) {
+                    PAREN = FALSE;
+                } else if (PAREN_DEPTH_LVL < 0) {
+                    printError(LINE_NUMBER, COLUMN_NUMBER, 1);
+                }
+                break;
+        }
+    }
+}
+
+void chkBrack()
+{
+    if ( !(COMMENT || S_QUOTE || D_QUOTE) ) {
+        switch(c) {
+            case ';':
+                if (BRACK) {
+                    printError(LINE_NUMBER, COLUMN_NUMBER, 2);
+                }
+                break;
+            case '[':
+                ++BRACK_DEPTH_LVL;
+                if (BRACK_DEPTH_LVL > 0) {
+                    BRACK = TRUE;
+                }
+                break;
+            case ']':
+                --BRACK_DEPTH_LVL;
+                if (BRACK_DEPTH_LVL == 0) {
+                    BRACK = FALSE;
+                } else if (BRACK_DEPTH_LVL < 0) {
+                    printError(LINE_NUMBER, COLUMN_NUMBER, 3);
+                }
+                break;
+        }
+    }
+}
+
+void chkBrace()
+{
+    if ( !(COMMENT || S_QUOTE || D_QUOTE) ) {
+        switch (c) {
+            case '{':
+                ++BRACE_DEPTH_LVL;
+                if (BRACE_DEPTH_LVL > 0) {
+                    BRACE = TRUE;
+                }
+                break;
+            case '}':
+                --BRACE_DEPTH_LVL;
+                if (BRACE_DEPTH_LVL == 0) {
+                    BRACE = FALSE;
+                } else if (BRACE_DEPTH_LVL < 0) {
+                    printError(LINE_NUMBER, COLUMN_NUMBER, 5);
+                }
+                break;
+        }
+    }
+}
+
+void chkQuote()
+{
+    if ( !(COMMENT || ESCAPE) ) {
+        switch (c) {
+            case ';':
+                if ( !(S_QUOTE || D_QUOTE) ) {
+                    LINE_END = 1;
+                }
+                break;
+            case '\'':
+                if (!LINE_END) {
+                    S_QUOTE = !S_QUOTE;
+                } else {
+                    printError(LINE_NUMBER, COLUMN_NUMBER, 6);
+                }
+                break;
+            case '"':
+                if (!LINE_END) {
+                    D_QUOTE = !D_QUOTE;
+                } else {
+                    printError(LINE_NUMBER, COLUMN_NUMBER, 7);
+                }
+                break;
+        }
+    }
+}
+
+void chkEscape()
+{
+
+    if (!COMMENT) {
+        if (c == '\\') {
+            int match = 0;
+            ESCAPE = TRUE;
+            c = getchar();
+
+            switch (c) {
+                case  'a':  /* alert bell */
+                case  'b':  /* backspace */
+                case  'f':  /* page break */
+                case  'n':  /* newline */
+                case  'r':  /* carriage return */
+                case  't':  /* horizontal tab */
+                case  'v':  /* vertical tab */
+                case '\\':  /* backspace */
+                case '\'':  /* single quote */
+                case  '"':  /* double quote */
+                case  '?':  /* question mark */
+                    ESCAPE = FALSE;
+                    break;
+               
+                /*-------------- octal byte case (0 - 377) --------------*/
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+
+                    while (c >= '0' && c <= '7') {
+                        ++match;
+                        c = getchar();
+
+                        if (match == 3) {
+                            break;
+                        }
+
+                    }
+
+                    /* no invalid sequence possible as octals can be
+                    shortened by following with a non-octal digit or
+                    character e.g. \2192 -> \21(octal) + 92(decimal) */
+
+                    ESCAPE = FALSE;
+                    break;
+                /*-------------------------------------------------------*/
+
+                 case 'x': /* hex byte (00-FF) */
+
+                    while (
+                              (c >= '0' && c <= '9') 
+                           || (c >= 'A' && c <= 'F')
+                           || (c >= 'a' && c <= 'f')
+                    ) {
+                        ++match;
+                        c = getchar();
+                    }
+
+                    if (match != 2) {
+                        /* E08: invalid_escape_sequence --> \??? */
+                        printError(LINE_NUMBER, COLUMN_NUMBER, 8); 
+                    }
+
+                    ESCAPE = FALSE;
+                    break;
+                
+                 case 'u': /* unicode code point up to FFFF hex */
+
+                    while (
+                              (c >= '0' && c <= '9') 
+                           || (c >= 'A' && c <= 'F')
+                           || (c >= 'a' && c <= 'f')
+                    ) {
+                        ++match;
+                        c = getchar();
+
+                        if (match == 4) {
+                            break;
+                        }
+
+                    }
+
+                    if (match != 4) {
+                        /* E08: invalid_escape_sequence --> \??? */
+                        printError(LINE_NUMBER, COLUMN_NUMBER, 8); 
+                    }
+
+                    ESCAPE = FALSE;
+                    break;
+               
+                case 'U': /* unicode in hex (8 hex digits) */
+
+                    while (
+                              (c >= '0' && c <= '9') 
+                           || (c >= 'A' && c <= 'F')
+                           || (c >= 'a' && c <= 'f')
+                    ) {
+                        ++match;
+                        c = getchar();
+
+                        if (match == 8) {
+                            break;
+                        }
+
+                    }
+
+                    if (match != 8) {
+                        /* E08: invalid_escape_sequence --> \??? */
+                        printError(LINE_NUMBER, COLUMN_NUMBER, 8); 
+                    }
+
+                    ESCAPE = FALSE;
+                    break;
+
+                default:
+                    ESCAPE = FALSE;
+                    printError(LINE_NUMBER, COLUMN_NUMBER, 8); 
+                    break;
+            }
+
+        }
+    }
+}
+
+void chkComment()
+{
+    if ( !(S_QUOTE || D_QUOTE) ) {
+        switch(c) {
+            /* 
+             *  special case: you can have as many begin-comment delimiters
+             *  as you want, but since C comments don't nest, you can only
+             *  have one end-comment delimtier
+             */
+            case '/': {
+                int aux = getchar();
+                ungetc(aux, stdin);
+                if (aux == '*') {
+                    COMMENT = TRUE;
+                }
+                break;
+            }
+
+            case '*': {
+                int aux = getchar();
+                ungetc(aux, stdin);
+                if (aux == '/') {
+                    if (COMMENT) {
+                        COMMENT = FALSE;
+                    } else {
+                        printError(LINE_NUMBER, COLUMN_NUMBER, 10); /* E10: extra_right_comment_delimiter --> ?? * / */
+                    }
+                }
+                break;
             }
         }
     }
 }
 
-void printError(int line_number, int column, int error_id)
+void printError(int line_number, int column_number, int error_id)
 {
-    char error_type[20][50] = {\
+    char error_description[20][50] = {\
         "E00: unmatched_left_parenthesis --> ( ?",\
         "E01: unmatched_right_parenthesis --> ? )",\
         "E02: unmatched_left_bracket --> [ ?",\
@@ -434,46 +393,5 @@ void printError(int line_number, int column, int error_id)
     };
 
     printf("Error @ line %d: column %d --- %s\n",
-           line_number, column, error_type[error_id]);
-}
-
-int insideForLoopDeclaration(char input_line[], int index)
-{
-    if ( !(COMMENT || SINGLE_QUOTES || DOUBLE_QUOTES) ) {
-        
-        int i;
-        for (i = index; i > 0; --i) {
-        
-            if (!FOR_LOOP) {
-
-                if ( 
-                       (
-                           input_line[i - 4] == 'f'
-                        && input_line[i - 3] == 'o'
-                        && input_line[i - 2] == 'r'
-                        && input_line[i - 1] == ' '
-                        && input_line[i]     == '('
-                       )
-                    ||  /* or */
-                       (
-                            input_line[i - 3] == 'f'
-                        &&  input_line[i - 2] == 'o'
-                        &&  input_line[i - 1] == 'r'
-                        &&  input_line[i]     == '('
-                       )
-                   ) {
-                        return FOR_LOOP = IN;
-                    }
-
-            } else if (input_line[i] == ')') {
-                return FOR_LOOP = OUT;
-            }
-        }
-
-        return FOR_LOOP = OUT;
-
-    }
-
-    return FOR_LOOP;
-
+        line_number, column_number, error_description[error_id]);   
 }
