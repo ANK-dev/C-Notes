@@ -1,3 +1,24 @@
+/**
+ * K&R 2nd ED - Exercise 1-24
+ * ==========================
+ * > by ANK-dev
+ *
+ * syntax checker - checks C source code for basic syntax errors
+ * -------------------------------------------------------------
+ * 
+ * This exercise uses a lot of global variables, which is definitely **NOT**
+ * ideal, but since pointers haven't been introduced in this chapter yet,
+ * there's no better alternative.
+ *
+ * It can also seen like a bit of a cheat, but the use of `switch` statements
+ * made this exercise much easier to wrap my head around. If strict compliance
+ * to the book's order of introduction of structures is desired, they can be
+ * easily substituted by `if/else` structures, with the only downside being
+ * longer/more complex code.
+ *
+ * Run this program using input redirection: `$ ./a.out < sourcecode.c`
+ */
+
 #include <stdio.h>
 
 #define MAXLINE 1000
@@ -5,15 +26,17 @@
 #define FALSE 0
 
 /*==== Global Variables =====================================================*/
+
 int c; /* input stream character */
 
 int PAREN_DEPTH_LVL = 0;
 int BRACK_DEPTH_LVL = 0;
 int BRACE_DEPTH_LVL = 0;
 
-int LINE_NUMBER = 1;
-int COLUMN_NUMBER = 1;
-int LINE_END    = FALSE;
+int LINE_NUMBER     = 1;
+int COLUMN_NUMBER   = 1;
+int LINE_END        = FALSE;
+int ERR_NUMBER      = 0;
 
 /*==== Program States =======================================================*/
 
@@ -44,6 +67,7 @@ void printError(int line_number, int column_number, int error_id);
 
 int main()
 {
+    printf("==== SYNTAX CHECKER ====================================\n\n");
     while( (c = getchar()) != EOF ) {
         chkForLoop();
         chkParen();
@@ -59,50 +83,61 @@ int main()
             LINE_END = FALSE;
         }
     }
-    printf("End of file");
+
+    if (ERR_NUMBER == 0) {
+        printf("\n==== END OF ANALYSIS: NO ERRORS FOUND ==================\n");
+    } else if (ERR_NUMBER == 1){
+        printf("\n==== END OF ANALYSIS: %3d ERROR FOUND ==================\n",
+               ERR_NUMBER);
+    } else {
+        printf("\n==== END OF ANALYSIS: %3d ERRORS FOUND =================\n",
+               ERR_NUMBER);
+    }
+
     return 0;
 }
 
 void chkForLoop()
 {
     if ( !(COMMENT || S_QUOTE || D_QUOTE) ) {
-        /* i = 1, the first character was already gotten */
-        int i = 1, auxbuffer[5];
 
-        auxbuffer[0] = c;
 
         /* get the next 4 characters, check, and put them back into stdin */
         if (!FOR_LOOP) {
-            /* check EOF or not? */
+            /* i = 1, the first character is nextbuffer[0] = c */
+            int i = 1, nextbuffer[5];
+            nextbuffer[0] = c;
+
+            /* get the rest of the characters */
             while(i < 5) {
-                auxbuffer[i++] = getchar();
+                nextbuffer[i++] = getchar();
             }
 
-            /* put characters back into stream and check only the buffer */
+            /* put characters back into stdin and check only the buffer */
             while(i > 1) {
-                ungetc(auxbuffer[--i], stdin);
+                ungetc(nextbuffer[--i], stdin);
             }
 
             if (
                 (
-                    auxbuffer[0] == 'f'
-                 && auxbuffer[1] == 'o'
-                 && auxbuffer[2] == 'r'
-                 && auxbuffer[3] == ' '
-                 && auxbuffer[4] == '('
+                    nextbuffer[0] == 'f'
+                 && nextbuffer[1] == 'o'
+                 && nextbuffer[2] == 'r'
+                 && nextbuffer[3] == ' '
+                 && nextbuffer[4] == '('
                 )
                 ||
                 (
-                    auxbuffer[0] == 'f'
-                 && auxbuffer[1] == 'o'
-                 && auxbuffer[2] == 'r'
-                 && auxbuffer[3] == '('
+                    nextbuffer[0] == 'f'
+                 && nextbuffer[1] == 'o'
+                 && nextbuffer[2] == 'r'
+                 && nextbuffer[3] == '('
                 )
             ) {
                 FOR_LOOP = TRUE;
             }
 
-        } else if (c == ')') {
+        } else if (c == ')' && PAREN_DEPTH_LVL == 1) {
             FOR_LOOP = FALSE;
         }
     }
@@ -110,10 +145,14 @@ void chkForLoop()
 
 void chkParen()
 {
-    if ( !(COMMENT || S_QUOTE || D_QUOTE || FOR_LOOP) ) {
+    if ( !(COMMENT || S_QUOTE || D_QUOTE) ) {
         switch (c) {
+            
+            /* ';' are not allowed in parenthesis except in `for` loop
+            statements */
             case ';':
-                if (PAREN) {
+                if (PAREN && !FOR_LOOP) {
+                    /* E00: unmatched_left_parenthesis --> ( ? */
                     printError(LINE_NUMBER, COLUMN_NUMBER, 0);
                 }
                 break;
@@ -130,6 +169,7 @@ void chkParen()
                 if (PAREN_DEPTH_LVL == 0) {
                     PAREN = FALSE;
                 } else if (PAREN_DEPTH_LVL < 0) {
+                    /* E01: unmatched_right_parenthesis --> ? ) */
                     printError(LINE_NUMBER, COLUMN_NUMBER, 1);
                 }
                 break;
@@ -143,6 +183,7 @@ void chkBrack()
         switch(c) {
             case ';':
                 if (BRACK) {
+                    /* E02: unmatched_left_bracket --> [ ? */
                     printError(LINE_NUMBER, COLUMN_NUMBER, 2);
                 }
                 break;
@@ -157,6 +198,7 @@ void chkBrack()
                 if (BRACK_DEPTH_LVL == 0) {
                     BRACK = FALSE;
                 } else if (BRACK_DEPTH_LVL < 0) {
+                    /* E03: unmatched_right_bracket --> ? ] */
                     printError(LINE_NUMBER, COLUMN_NUMBER, 3);
                 }
                 break;
@@ -179,6 +221,7 @@ void chkBrace()
                 if (BRACE_DEPTH_LVL == 0) {
                     BRACE = FALSE;
                 } else if (BRACE_DEPTH_LVL < 0) {
+                    /* E05: unmatched_right_brace --> ? } */
                     printError(LINE_NUMBER, COLUMN_NUMBER, 5);
                 }
                 break;
@@ -190,22 +233,28 @@ void chkQuote()
 {
     if ( !(COMMENT || ESCAPE) ) {
         switch (c) {
+            /* if a ';' is found, no more quotes are allowed (except in `for`
+            loops or inside quotes) */
             case ';':
-                if ( !(S_QUOTE || D_QUOTE) ) {
+                if ( !(S_QUOTE || D_QUOTE || FOR_LOOP) ) {
                     LINE_END = 1;
                 }
                 break;
             case '\'':
-                if (!LINE_END) {
+                if ( !(LINE_END || D_QUOTE) ) {
+                    /* if inside quote, go outside quote and vice-versa */
                     S_QUOTE = !S_QUOTE;
-                } else {
+                } else if (LINE_END) {
+                    /* E06: unbalanced_single_quote --> ?'? */
                     printError(LINE_NUMBER, COLUMN_NUMBER, 6);
                 }
                 break;
             case '"':
-                if (!LINE_END) {
+                if ( !(LINE_END || S_QUOTE) ) {
+                    /* ditto */
                     D_QUOTE = !D_QUOTE;
-                } else {
+                } else if (LINE_END) {
+                    /* E07: unbalanced_double_quote --> ?"? */
                     printError(LINE_NUMBER, COLUMN_NUMBER, 7);
                 }
                 break;
@@ -219,10 +268,11 @@ void chkEscape()
     if (!COMMENT) {
         if (c == '\\') {
             int match = 0;
+            char next;
             ESCAPE = TRUE;
-            c = getchar();
+            next = getchar();
 
-            switch (c) {
+            switch (next) {
                 case  'a':  /* alert bell */
                 case  'b':  /* backspace */
                 case  'f':  /* page break */
@@ -236,7 +286,7 @@ void chkEscape()
                 case  '?':  /* question mark */
                     ESCAPE = FALSE;
                     break;
-               
+
                 /*-------------- octal byte case (0 - 377) --------------*/
                 case '0':
                 case '1':
@@ -249,7 +299,7 @@ void chkEscape()
 
                     while (c >= '0' && c <= '7') {
                         ++match;
-                        c = getchar();
+                        next = getchar();
 
                         if (match == 3) {
                             break;
@@ -261,6 +311,10 @@ void chkEscape()
                     shortened by following with a non-octal digit or
                     character e.g. \2192 -> \21(octal) + 92(decimal) */
 
+                    /* unget final char as it isn't part of the escape seq. */
+                    ungetc(next, stdin);
+                    c = next;
+
                     ESCAPE = FALSE;
                     break;
                 /*-------------------------------------------------------*/
@@ -268,31 +322,34 @@ void chkEscape()
                  case 'x': /* hex byte (00-FF) */
 
                     while (
-                              (c >= '0' && c <= '9') 
+                              (c >= '0' && c <= '9')
                            || (c >= 'A' && c <= 'F')
                            || (c >= 'a' && c <= 'f')
                     ) {
                         ++match;
-                        c = getchar();
+                        next = getchar();
                     }
 
                     if (match != 2) {
                         /* E08: invalid_escape_sequence --> \??? */
-                        printError(LINE_NUMBER, COLUMN_NUMBER, 8); 
+                        printError(LINE_NUMBER, COLUMN_NUMBER - match, 8);
                     }
+
+                    ungetc(next, stdin);
+                    c = next;
 
                     ESCAPE = FALSE;
                     break;
-                
+
                  case 'u': /* unicode code point up to FFFF hex */
 
                     while (
-                              (c >= '0' && c <= '9') 
+                              (c >= '0' && c <= '9')
                            || (c >= 'A' && c <= 'F')
                            || (c >= 'a' && c <= 'f')
                     ) {
                         ++match;
-                        c = getchar();
+                        next = getchar();
 
                         if (match == 4) {
                             break;
@@ -302,21 +359,24 @@ void chkEscape()
 
                     if (match != 4) {
                         /* E08: invalid_escape_sequence --> \??? */
-                        printError(LINE_NUMBER, COLUMN_NUMBER, 8); 
+                        printError(LINE_NUMBER, COLUMN_NUMBER - match, 8);
                     }
+
+                    ungetc(next, stdin);
+                    c = next;
 
                     ESCAPE = FALSE;
                     break;
-               
+
                 case 'U': /* unicode in hex (8 hex digits) */
 
                     while (
-                              (c >= '0' && c <= '9') 
+                              (c >= '0' && c <= '9')
                            || (c >= 'A' && c <= 'F')
                            || (c >= 'a' && c <= 'f')
                     ) {
                         ++match;
-                        c = getchar();
+                        next = getchar();
 
                         if (match == 8) {
                             break;
@@ -326,15 +386,20 @@ void chkEscape()
 
                     if (match != 8) {
                         /* E08: invalid_escape_sequence --> \??? */
-                        printError(LINE_NUMBER, COLUMN_NUMBER, 8); 
+                        printError(LINE_NUMBER, COLUMN_NUMBER - match, 8);
                     }
+
+                    ungetc(next, stdin);
+                    c = next;
 
                     ESCAPE = FALSE;
                     break;
 
                 default:
                     ESCAPE = FALSE;
-                    printError(LINE_NUMBER, COLUMN_NUMBER, 8); 
+                    /* E08: invalid_escape_sequence --> \??? */
+                    printError(LINE_NUMBER, COLUMN_NUMBER - 1, 8);
+                    ungetc(next, stdin);
                     break;
             }
 
@@ -346,7 +411,7 @@ void chkComment()
 {
     if ( !(S_QUOTE || D_QUOTE) ) {
         switch(c) {
-            /* 
+            /**
              *  special case: you can have as many begin-comment delimiters
              *  as you want, but since C comments don't nest, you can only
              *  have one end-comment delimtier
@@ -367,7 +432,8 @@ void chkComment()
                     if (COMMENT) {
                         COMMENT = FALSE;
                     } else {
-                        printError(LINE_NUMBER, COLUMN_NUMBER, 10); /* E10: extra_right_comment_delimiter --> ?? * / */
+                        /* E10: extra_right_comment_delimiter --> ?? * / */
+                        printError(LINE_NUMBER, COLUMN_NUMBER, 10); 
                     }
                 }
                 break;
@@ -392,6 +458,7 @@ void printError(int line_number, int column_number, int error_id)
         "E10: extra_right_comment_delimiter --> ?? */"\
     };
 
-    printf("Error @ line %d: column %d --- %s\n",
-        line_number, column_number, error_description[error_id]);   
+    printf("* Error @ line %d: column %d --- %s\n",
+           line_number, column_number, error_description[error_id]);
+    ++ERR_NUMBER;
 }
