@@ -1,2 +1,3 @@
 # Ignore "out" folder of each chapter
 Chapter_1/out/
+.vscode

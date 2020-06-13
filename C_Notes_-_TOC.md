@@ -1,8 +1,8 @@
-# The C Programming Language 2^nd^ Edition --- Anotações
+# The C Programming Language 2nd Edition — Anotações
 
 ## Table of Contents
 
-* [Chapter 1](./Chapter_1/C_Notes_-_Chapter_1.md#chapter-1)
+* [Chapter 1: A Tutorial Introduction](./Chapter_1/C_Notes_-_Chapter_1.md#chapter-1-a-tutorial-introduction)
   - [1.1 Getting Started](./Chapter_1/C_Notes_-_Chapter_1.md#11-getting-started)
   - [1.2 Variables and Arithmetic Expressions](./Chapter_1/C_Notes_-_Chapter_1.md#12-variables-and-arithmetic-expressions)
     + [Exercícios 1.2](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-12)
@@ -26,3 +26,6 @@
     + [Exercícios 1.9](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-19)
   - [1.10 External Variables and Scope](./Chapter_1/C_Notes_-_Chapter_1.md#110-external-variables-and-scope)
     + [Exercícios 1.10](./Chapter_1/C_Notes_-_Chapter_1.md#exercícios-110)
+* [Chapter 2: Types, Operators, and Expressions](./Chapter_2/C_Notes_-_Chapter_2.md#chapter-2-types-operators-and-expressions)
+  - [2.1 Variable Names](./Chapter_2/C_Notes_-_Chapter_2.md#21-variable-names)
+    + [Exercícios 2.2](./Chapter_2/C_Notes_-_Chapter_2.md#exercícios-22)

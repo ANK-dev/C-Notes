@@ -1,6 +1,6 @@
-# The C Programming Language 2nd Edition --- Anotações
+# The C Programming Language 2nd Edition — Anotações
 
-## Chapter 1
+## Chapter 1: A Tutorial Introduction
 
 ### 1.1 Getting Started
 
@@ -33,24 +33,24 @@ Um programa em C consiste de funções e variáveis
 serem realizadas.
 * Variáveis: armazenam valores usados durante a computação
 
-Função `main` -> especial. O programa sempre começa a ser executado do começo
+Função `main`: especial. O programa sempre começa a ser executado do começo
 da `main`.
 
-`#include <stdio.h>` -> diz ao compilador para incluir informações sobre a
+`#include <stdio.h>`: diz ao compilador para incluir informações sobre a
 biblioteca padrão de entrada/saída.
 
-Argumentos -> método de comunicação de dados entre funções. Denotado por
-parênteses ao redor dos argumentos após o nome da função.
-No exemplo, a função `main` é declarada como uma função que não espera
-argumentos, indicado pela lista vazia `()`.
+Argumentos: método de comunicação de dados entre funções. Denotado por
+parênteses ao redor dos argumentos após o nome da função. No exemplo, a função
+`main` é declarada como uma função que não espera argumentos, indicado pela
+lista vazia `()`.
 
 Algumas sequências de escape úteis:
 
-* `\n` -> nova linha
-* `\t` -> tab
-* `\b` -> backspace
-* `\"` -> aspas
-* `\\` -> contra barra
+* `\n` → nova linha
+* `\t` → tab
+* `\b` → backspace
+* `\"` → aspas
+* `\\` → contra barra
 
 ### 1.2 Variables and Arithmetic Expressions
 
@@ -102,32 +102,32 @@ A execução deste programa resulta na seguinte tabela:
 
 Elementos do programa:
 
-* `/* exemplo */` -> representa uma ou mais linhas de comentário. Servem para
-tornar o programa mais fácil de ser compreendido. Todos os caracteres entre
-`/*` e `*/` são ignorados pelo compilador.
-* `int fahr, celsius;` -> declaração de variáveis, mais especificamente números
-do tipo inteiro. EM C, todas as variáveis devem ser declaradas antes de poderem
-ser utilizadas, usualmente no início da função antes de qualquer declarações
-executáveis.
-  - Tipo `int` -> indica que as variáveis listadas são números inteiros. A
-      faixa de valores depende da máquina.
+* `/* exemplo */`: representa uma ou mais linhas de comentário. Servem para
+  tornar o programa mais fácil de ser compreendido. Todos os caracteres entre
+  `/*` e `*/` são ignorados pelo compilador.
+* `int fahr, celsius;`: declaração de variáveis, mais especificamente números
+  do tipo inteiro. Em C, todas as variáveis devem ser declaradas antes de
+  poderem ser utilizadas, usualmente no início da função antes de qualquer
+  declarações executáveis.
+  - Tipo `int`: indica que as variáveis listadas são números inteiros. A faixa
+    de valores depende da máquina.
     + `int`s de *16-bits*: entre *-32768* e *+32767*.
     + `int`s de *32-bits*: entre *-2147483648* e *+2147483647*.
-  - Tipo `float` -> indica que as variáveis listadas são do tipo
-      ponto-flutuante, i.e., números que podem possuir parte fracionária.
-      Costumam ser quantidades de *32-bits* com pelo menos *seis dígitos
-      significativos* e magnitude de valores entre *10^(-38)* e *10^38*.
+  - Tipo `float`: indica que as variáveis listadas são do tipo ponto-flutuante,
+    i.e., números que podem possuir parte fracionária. Costumam ser quantidades
+    de *32-bits* com pelo menos *seis dígitos significativos* e magnitude de
+    valores entre *10^(-38)* e *10^38*.
 
 Dentre os diversos tipos de dados em C, podemos também citar:
 
-* `char` -> character (caractere), um único byte.
-* `short` -> inteiro curto.
-* `long` -> inteiro longo.
-* `double` -> ponto-flutuante de precisão dupla.
+* `char` → character (caractere), um único byte.
+* `short` → inteiro curto.
+* `long` → inteiro longo.
+* `double` → ponto-flutuante de precisão dupla.
 
 O tamanho desses objetos depende da máquina.
 
-<!-- Preview Tabela HTML ===============================
+<!-- HTML Table Preview =======================================================
  ┌─────────────────┬───┬──────────────────────────────┐
  │ • `lower = 0`   │   │                              │
  ├─────────────────┤ ⎫ │ Declarações de atribuição.   │
@@ -135,9 +135,8 @@ O tamanho desses objetos depende da máquina.
  ├─────────────────┤ ⎭ │ valores iniciais.            │
  │ • `step = 20`   │   │                              │
  └─────────────────┴───┴──────────────────────────────┘
-==================================================== -->
+=========================================================================== -->
 
-<!-- Tabela HTML =================================== -->
 <table>
   <tbody>
     <tr>
@@ -155,7 +154,6 @@ O tamanho desses objetos depende da máquina.
     </tr>
   </tbody>
 </table>
-<!-- =============================================== -->
 
 Para o cálculo de cada linha da tabela é usado um laço `while`, que repete uma
 vez por linha da saída.
@@ -198,12 +196,12 @@ Como 5/9 resulta em um número com parte fracionária (5/9 ≈ 0.566) e a variá
 maneira que uma operação em uma operação com inteiros o resultado de 5/9 é
 igual a zero.
 
-* `printf("%d\t%d\n", fahr, celsius);` -> O `printf` é uma função de formatação
-de saída de propósito generalizado.
-  - 1º argumento: `"%d\t%d\n"` -> string a ser impressa. Cada `%□` indica um
+* `printf("%d\t%d\n", fahr, celsius);`: O `printf` é uma função de formatação
+  de saída de propósito generalizado.
+  - 1º argumento: `"%d\t%d\n"`: string a ser impressa. Cada `%□` indica um
       local onde os próximos argumentos serão substituídos, onde □ representa
       um caractere indicando o tipo de dado do argumento.
-  - 2º e 3º argumentos: `fahr, celsius` -> serão substituídos no local de cada
+  - 2º e 3º argumentos: `fahr, celsius`: serão substituídos no local de cada
       `%d`, respectivamente.
 
 -------------------------------------------------------------------------------
@@ -276,13 +274,13 @@ Principais diferenças:
 **OBS**: Ao se utilizar um ponto decimal em uma constante indica-se que o seu
 valor é do tipo ponto-flutuante.
 
-* 5.0/9.0 -> *divisão de `float`s*, *resultado é `float`*
-* 5.0/9 -> divisão de *`float` por `int`*, `int` é convertido em `float` antes
-           do cálculo, *resultado é `float`*
-* 5/9.0 -> divisão de *`int` por `float`*, `int` é convertido em `float` antes
-           do cálculo, *resultado é `float`*
-* 5/9 -> divisão de *`int` por `int`*, *resultado é `int`*. Qualquer parte
-         fracionária é truncada!
+* 5.0/9.0: **divisão de `float`s**, **resultado é `float`**
+* 5.0/9: divisão de **`float` por `int`**, `int` é convertido em `float` antes
+  do cálculo, **resultado é `float`**
+* 5/9.0: divisão de **`int` por `float`**, `int` é convertido em `float` antes
+  do cálculo, **resultado é `float`**
+* 5/9: divisão de **`int` por `int`**, **resultado é `int`**. *Qualquer parte
+  fracionária é truncada!*
 
 Apesar da conversão automática de `int`s em `float`s em operações aritméticas
 que misturem os tipos, é recomendado explicitar constantes do tipo ponto-
@@ -307,13 +305,13 @@ com seis dígitos de largura e m dígito após o ponto.
 
 Algumas opções de formatação são as seguintes:
 
-* `%d`    -> decimal inteiro
-* `%6d`   -> decimal inteiro, pelo menos 6 caracteres de largura
-* `%f`    -> ponto-flutuante
-* `%6f`   -> ponto-flutuante, pelo menos 6 caracteres de largura
-* `%.2f`  -> ponto-flutuante, 2 caracteres após o ponto
-* `%6.2f` -> ponto-flutuante, pelo menos 6 caracteres de largura e 2 caracteres
-             após o ponto
+* `%d`    → decimal inteiro
+* `%6d`   → decimal inteiro, pelo menos 6 caracteres de largura
+* `%f`    → ponto-flutuante
+* `%6f`   → ponto-flutuante, pelo menos 6 caracteres de largura
+* `%.2f`  → ponto-flutuante, 2 caracteres após o ponto
+* `%6.2f` → ponto-flutuante, pelo menos 6 caracteres de largura e 2 caracteres
+  após o ponto
 
 Outros tipos de dados reconhecidos por `printf` incluem: `%o` p/ octal, `%x` p/
 hexadecimal, `%c` p/ caractere, `%s` p/ string e `%%` p/ si próprio.
@@ -424,9 +422,9 @@ seguidas por um caractere "nova linha".
 A biblioteca padrão oferece diversas funções para a leitura ou escrita de um
 caractere de cada vez. As mais simples são a `getchar`e `putchar`.
 
-* `getchar` -> cada vez que é chamada lê o próximo caractere de entrada de um
+* `getchar`: cada vez que é chamada lê o próximo caractere de entrada de um
   fluxo de texto e o retorna como o seu valor. Ex: `c = getchar();`.
-* `putchar` -> cada vez que é chamada imprime o conteúdo da variável inteira
+* `putchar`: cada vez que é chamada imprime o conteúdo da variável inteira
   `c` como um caractere, usualmente para a tela. Ex: `putchar(c);`.
 
 #### 1.5.1 File Copying
@@ -873,8 +871,8 @@ A função `power` é chamada duas vezes por `main`, na linha
 como argumento no `printf` tem tipo inteiro (`%d`) pois a função `power`, como
 previamente declarada, tem como retorno um `int`.
 
-* Variável -> argumento real
-* Parâmetro -> argumento formal
+* Variável → argumento real
+* Parâmetro → argumento formal
 
 A primeira linha de uma função, como `int power(int base, int n)` declara os
 tipos e nomes dos parâmetros, e o tipo do resultado que a função retorna. Os
@@ -889,8 +887,8 @@ retornar somente por uma questão de controle de fluxo.
 A função `main`, como qualquer outra, pode retornar um valor; este valor é
 retornado ao ambiente de execução do programa. Por costume:
 
-* retorno == 0 -> terminação normal
-* retorno != 0 -> erro ou condição não-usual de terminação.
+* retorno == 0 → terminação normal
+* retorno != 0 → erro ou condição não-usual de terminação.
 
 A declaração `int power(int base, int n);` é um *protótipo de função*. Ela diz
 a `main` que `power` é uma função que espera dois argumentos `int` e retorna um
@@ -1021,13 +1019,14 @@ Para toda string constant como `"hello\n"`, que aparace em um programa em C,
 esta é armazenada em um vetor de caracteres contendo os caracteres da string e
 terminado com um `'\0'`.
 
-<!-- HTML Code Preview ======================
-┌─────┬─────┬─────┬─────┬─────┬──────┬──────┐
-│  h  │  e  │  l  │  l  │  o  │  \n  │  \0  │
-└─────┴─────┴─────┴─────┴─────┴──────┴──────┘
-========================================= -->
+<!-- HTML Code Preview ========================================================
 
-<!-- HTML Code ============================================= -->
+                 ┌─────┬─────┬─────┬─────┬─────┬──────┬──────┐
+                 │  h  │  e  │  l  │  l  │  o  │  \n  │  \0  │
+                 └─────┴─────┴─────┴─────┴─────┴──────┴──────┘                 
+
+=========================================================================== -->
+
 <p align="center">
   <code>┌─────┬─────┬─────┬─────┬─────┬──────┬──────┐</code>
   <br><code>│
@@ -1041,7 +1040,6 @@ terminado com um `'\0'`.
   </code><br>
   <code>└─────┴─────┴─────┴─────┴─────┴──────┴──────┘</code>
 </p>
-<!-- ======================================================= -->
 
 A especificação do formato `%s` do `printf` espera que o argumento seja uma
 string representada desta forma. `copy` também depende do fato de que o seu
@@ -1198,6 +1196,5 @@ de que ele destrói a generalização e versatilidade das duas funções.
 * [Exercise 1-22](./Exercise_1-22.c)
 * [Exercise 1-23](./Exercise_1-23.c)
 * [Exercise 1-24](./Exercise_1-24.c)
-* [Exercise 1-25](./Exercise_1-25.c)
 
 -------------------------------------------------------------------------------
