@@ -54,7 +54,8 @@ Também há alguns qualificadores que podem ser aplicados a esses tipos básicos
 * `short` → pelo menos 16 bits.
 * `long` → pelo menos 32 bits.
 * `signed` → valores negativos ou positivos; aplicável a `char`s e `int`s
-* `unsigned` → somente zero ou valores positivos; aplicável a `char`s e `int`s
+* `unsigned` → somente zero ou valores positivos, seguindo as regras da
+  aritmética módulo 2ⁿ; aplicável a `char`s e `int`s
 
 É possível escrever `short int foo` / `long int bar`, ou simplesmente,
 `short foo` / `long bar`.
@@ -90,4 +91,3 @@ para todos esses tamanhos, além de outras propriedades da máquina e compilador
 * [Exercise 2-1](./Exercise_2-1.c)
 
 -------------------------------------------------------------------------------
-

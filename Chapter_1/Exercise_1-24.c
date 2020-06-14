@@ -1,5 +1,5 @@
 /**
- * K&R 2nd ED - Exercise 1-24
+ * Exercise 1-24 - K&R 2nd ED
  * ==========================
  * > by ANK-dev
  *
@@ -445,17 +445,17 @@ void chkComment()
 void printError(int line_number, int column_number, int error_id)
 {
     char error_description[20][50] = {\
-        "E00: unmatched_left_parenthesis --> ( ?",\
-        "E01: unmatched_right_parenthesis --> ? )",\
-        "E02: unmatched_left_bracket --> [ ?",\
-        "E03: unmatched_right_bracket --> ? ]",\
-        "E04: unmatched_left_brace --> { ?",\
-        "E05: unmatched_right_brace --> ? }",\
-        "E06: unbalanced_single_quote --> ?'?",\
-        "E07: unbalanced_double_quote --> ?\"?",\
-        "E08: invalid_escape_sequence --> \\???",\
-        "E09: extra_left_comment_delimiter --> /* ??",\
-        "E10: extra_right_comment_delimiter --> ?? */"\
+        "E00: unmatched_left_parenthesis --> ( ?",
+        "E01: unmatched_right_parenthesis --> ? )",
+        "E02: unmatched_left_bracket --> [ ?",
+        "E03: unmatched_right_bracket --> ? ]",
+        "E04: unmatched_left_brace --> { ?",
+        "E05: unmatched_right_brace --> ? }",
+        "E06: unbalanced_single_quote --> ?'?",
+        "E07: unbalanced_double_quote --> ?\"?",
+        "E08: invalid_escape_sequence --> \\???",
+        "E09: extra_left_comment_delimiter --> /* ??",
+        "E10: extra_right_comment_delimiter --> ?? */"
     };
 
     printf("* Error @ line %d: column %d --- %s\n",
