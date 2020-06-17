@@ -91,3 +91,110 @@ para todos esses tamanhos, além de outras propriedades da máquina e compilador
 * [Exercise 2-1](./Exercise_2-1.c)
 
 -------------------------------------------------------------------------------
+
+### 2.3 Constants
+
+* **Constante-inteira**
+  - Com sinal (*signed*):
+    + `int` → `1234`
+    + `long` → `123456789l` ou `123456789L` (inteiros muito grandes para um
+      `int` são automaticamente interpretados como um `long`)
+  - Sem sinal (*unsigned*):
+    + `int` → `1234u` ou `1234U`
+    + `long` → `1234ul` ou `1234UL`
+  - Base octal (prefixo `0`):
+    + `037` == 31 (*base 10*)
+    + Também podem ser *`unsigned`* (`037u`), *`long`* (`037l`) ou *ambos*
+      (`037ul`)
+  - Base hexadecimal (prefixo `0x` ou `0X`):
+    + (`0x1f` ou `0X1F`) == 31 (*base 10*)
+    + Também pode ser *`unsigned`* (`0x1Fu`), *`long`* (`0x1Fl`) ou *ambos*
+      (`0x1Ful`)
+* **Constante de ponto-flutuante**
+  - `double` → `123.4`, `1e-2`
+  - `float` → `123.4f`, `123.4F`, `1e-2f`, `1e-2F`
+  - `long double` → `123.4l`, `123.4L`, `1e-2l`, `1e-2L`
+* **Constante-caractere**
+  - `'x'` → inteiro com valor equivalente ao caractere no conjunto de
+    caracteres (*charset*) da máquina. Ex: `'0'` == 48 (*base 10*)
+  - `'\ooo'` → sequência de escape octal, onde `ooo` são um a três dígitos
+    octais (0…7)
+  - `'\xhh'` → sequência de escape hexadecimal, onde `hh` são um ou dois
+    dígitos hexadecimais (0…9, a…f, A…F)
+  - o conjunto completo de sequências de escape é:
+
+    | Sequência |  Descrição                |
+    | :-------: | ------------------------- |
+    | `\a`      | alerta (bell)             |  
+    | `\b`      | backspace                 |  
+    | `\f`      | alimentação de formulário |  
+    | `\n`      | nova linha                |  
+    | `\r`      | retorno de carro          |  
+    | `\t`      | tabulação horizontal      |  
+    | `\v`      | tabulação vertical        |
+    | `\\`      | contra barra              |
+    | `\?`      | interrogação              |
+    | `\'`      | aspas simples             |
+    | `\"`      | aspas duplas              |
+    | `\ooo`    | número octal              |
+    | `\xhh`    | número hexadecimal        |
+
+  -----------------------------------------------------------------------------
+
+  - **OBS**: a constante de caractere `'\0'` representa o caractere com valor
+    zero, o caractere nulo. `'\0'` é escrito ao invés de 0 para enfatizar a
+    natureza de caractere de alguma expressão, mas seu valor numérico é apenas
+    0.
+
+  -----------------------------------------------------------------------------
+
+* **Expressão constante**: expressão que contém somente valores constantes;
+  pode ser usada em qualquer lugar onde uma constante também pode.
+  
+  ```C
+  `#define MAXLINE 1000`  
+  `char line[MAXLINE + 1];`
+  ```
+
+* **Constante-string**: também conhecida como *string literal*, consiste
+  em uma sequência de zero ou mais caracteres entre aspas duplas.
+  - `"Eu sou uma string"`
+  - `"" /* a string vazia */`
+  - Constantes-string podem ser concatenadas: `"hello," "world"`
+  - Pode-se utilizar a função `strlen(s)` da biblioteca padrão para se calcular
+    o comprimento de uma dada string `s`, ignorando o `\0` final.
+  - `strlen(s)` e outras funções de string estão declaradas no header padrão
+    `<string.h>`.
+
+  -----------------------------------------------------------------------------
+
+  - **OBS**: Ter cuidado com a diferença entre:
+
+    + `'x'` → constante-caractere
+    + `"x"` → constante-string
+
+    O primeiro é um inteiro equivalente ao caractere `x` no charset da máquina,
+    o segundo é uma string contendo um caractere `x` e um `\0`.
+
+  -----------------------------------------------------------------------------
+
+* **Constante de enumeração**: é uma lista de valores inteiros constantes.
+  - Primeiro nome tem valor 0, segundo nome tem valor 1, etc.…, a não ser que
+    especificado.
+  - Valores não especificados continuam a progressão a partir do último valor
+    especificado.  
+    &nbsp;
+
+  ```C
+  enum boolean { NO, YES };
+
+  enum escapes { BELL = '\a', BACKSPACE = '\b', TAB = '\t',
+                 NEWLINE = '\n', VTAB = '\v', RETURN = '\r' };
+
+  enum months { JAN = 1, FEB, MAR, APR, MAY, JUN,
+                JUL, AUG, SEP, OCT, NOV, DEC };
+                      /* FEB é 2, MAR é 3, etc. */
+  ```
+
+### 2.4 Declarations
+

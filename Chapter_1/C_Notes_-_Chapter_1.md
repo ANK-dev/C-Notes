@@ -1019,27 +1019,9 @@ Para toda string constant como `"hello\n"`, que aparace em um programa em C,
 esta é armazenada em um vetor de caracteres contendo os caracteres da string e
 terminado com um `'\0'`.
 
-<!-- HTML Code Preview ========================================================
-
-                 ┌─────┬─────┬─────┬─────┬─────┬──────┬──────┐
-                 │  h  │  e  │  l  │  l  │  o  │  \n  │  \0  │
-                 └─────┴─────┴─────┴─────┴─────┴──────┴──────┘                 
-
-=========================================================================== -->
-
-<p align="center">
-  <code>┌─────┬─────┬─────┬─────┬─────┬──────┬──────┐</code>
-  <br><code>│
-     &emsp;h &emsp;│
-     &emsp;e &emsp;│
-     &emsp;l &emsp;│
-     &emsp;l &emsp;│
-     &emsp;o &emsp;│
-    &emsp;\n &emsp;│
-    &emsp;\0 &emsp;│
-  </code><br>
-  <code>└─────┴─────┴─────┴─────┴─────┴──────┴──────┘</code>
-</p>
+    ┌─────┬─────┬─────┬─────┬─────┬──────┬──────┐
+    │  h  │  e  │  l  │  l  │  o  │  \n  │  \0  │
+    └─────┴─────┴─────┴─────┴─────┴──────┴──────┘
 
 A especificação do formato `%s` do `printf` espera que o argumento seja uma
 string representada desta forma. `copy` também depende do fato de que o seu
