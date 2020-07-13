@@ -6,7 +6,7 @@
 
 Exemplo de programa "hello, world" básico:
 
-```C
+~~~ C
 #include <stdio.h>       // inclui info. sobre a biblioteca padrão
                          // as declarações de main são cercadas por chaves
 main()                   // define função `main` que não recebe argumentos
@@ -15,26 +15,24 @@ main()                   // define função `main` que não recebe argumentos
                                 para imprimir esta sequência de caracteres */
                                 // `\n` representa o caractere novalinha
 }
-```
+~~~
 
-Salvo em um sistema UNIX como `hello.c`, pode ser compilado com o comando:
-`cc hello.c`
+Salvo em um sistema UNIX como `hello.c`, pode ser compilado com o comando: `cc
+hello.c`
 
 A compilação irá produzir um arquivo executável `a.out`, que, ao ser executado,
 irá imprimir:
 
-```text
-hello, world
-```
+    hello, world
 
 Um programa em C consiste de funções e variáveis
 
 * Funções: Contém *declarações* que especificam as operações computacionais a
-serem realizadas.
+  serem realizadas.
 * Variáveis: armazenam valores usados durante a computação
 
-Função `main`: especial. O programa sempre começa a ser executado do começo
-da `main`.
+Função `main`: especial. O programa sempre começa a ser executado do começo da
+`main`.
 
 `#include <stdio.h>`: diz ao compilador para incluir informações sobre a
 biblioteca padrão de entrada/saída.
@@ -54,10 +52,10 @@ Algumas sequências de escape úteis:
 
 ### 1.2 Variables and Arithmetic Expressions
 
-Exemplo de programa que converte temperaturas em Fahrenheit para Celsius
-através da seguinte fórmula: °C = (5/9)(°F-32)
+Exemplo de programa que converte temperaturas em Fahrenheit para Celsius através
+da seguinte fórmula: °C = (5/9)(°F-32)
 
-```C
+~~~ C
 #include <stdio.h>
 
 /* print Fahrenheit-Celsius table for fahr = 0, 20,..., 300 */
@@ -77,38 +75,36 @@ main()
         fahr = fahr + step;
     }
 }
-```
+~~~
 
 A execução deste programa resulta na seguinte tabela:
 
-```text
-1   -17
-20  -6
-40  4
-60  15
-80  26
-100 37
-120 48
-140 60
-160 71
-180 82
-200 93
-220 104
-240 115
-260 126
-280 137
-300 148
-```
+    1   -17
+    20  -6
+    40  4
+    60  15
+    80  26
+    100 37
+    120 48
+    140 60
+    160 71
+    180 82
+    200 93
+    220 104
+    240 115
+    260 126
+    280 137
+    300 148
 
 Elementos do programa:
 
 * `/* exemplo */`: representa uma ou mais linhas de comentário. Servem para
   tornar o programa mais fácil de ser compreendido. Todos os caracteres entre
   `/*` e `*/` são ignorados pelo compilador.
-* `int fahr, celsius;`: declaração de variáveis, mais especificamente números
-  do tipo inteiro. Em C, todas as variáveis devem ser declaradas antes de
-  poderem ser utilizadas, usualmente no início da função antes de qualquer
-  declarações executáveis.
+* `int fahr, celsius;`: declaração de variáveis, mais especificamente números do
+  tipo inteiro. Em C, todas as variáveis devem ser declaradas antes de poderem
+  ser utilizadas, usualmente no início da função antes de qualquer declarações
+  executáveis.
   - Tipo `int`: indica que as variáveis listadas são números inteiros. A faixa
     de valores depende da máquina.
     + `int`s de *16-bits*: entre *-32768* e *+32767*.
@@ -158,58 +154,57 @@ O tamanho desses objetos depende da máquina.
 Para o cálculo de cada linha da tabela é usado um laço `while`, que repete uma
 vez por linha da saída.
 
-```C
+~~~ C
 while (fahr <= upper) {
     ...
 }
-```
+~~~
 
-Funcionamento do laço `while`:
-A condição entre parênteses é testada. Caso verdadeira, o corpo do laço é
-executado. Enquanto for verdadeira, o corpo do laço será reexecutado.
+Funcionamento do laço `while`: A condição entre parênteses é testada. Caso
+verdadeira, o corpo do laço é executado. Enquanto for verdadeira, o corpo do
+laço será reexecutado.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **OBS**: Caso o corpo do laço seja composto de apenas uma declaração, ele pode
 ser escrito sem chaves. Exemplo:
 
-```C
+~~~ C
 while (i < j)
     i = 2 * i;
-```
+~~~
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 Sempre ter cuidado com a indentação para garantir a legibilidade do código!
 
 A principal lógica do programa se dá no corpo do laço através da atribuição:
 
-```C
+~~~ C
 celsius = 5 * (fahr - 32) / 9;
-```
+~~~
 
 IMPORTANTE: Devido a particularidades nas operações com `int`s, se faz
 necessário multiplicar por 5 para em seguida dividir por 9. Caso a conta
-`(fahr-32)` fosse multiplicada diretamente por 5/9, o resultado seria zero.
-Como 5/9 resulta em um número com parte fracionária (5/9 ≈ 0.566) e a variável
-é do tipo inteiro, a parte fracionária é truncada, isto é, descartada, de
-maneira que uma operação em uma operação com inteiros o resultado de 5/9 é
-igual a zero.
+`(fahr-32)` fosse multiplicada diretamente por 5/9, o resultado seria zero. Como
+5/9 resulta em um número com parte fracionária (5/9 ≈ 0.566) e a variável é do
+tipo inteiro, a parte fracionária é truncada, isto é, descartada, de maneira que
+uma operação em uma operação com inteiros o resultado de 5/9 é igual a zero.
 
-* `printf("%d\t%d\n", fahr, celsius);`: O `printf` é uma função de formatação
-  de saída de propósito generalizado.
-  - 1º argumento: `"%d\t%d\n"`: string a ser impressa. Cada `%□` indica um
-      local onde os próximos argumentos serão substituídos, onde □ representa
-      um caractere indicando o tipo de dado do argumento.
+* `printf("%d\t%d\n", fahr, celsius);`: O `printf` é uma função de formatação de
+  saída de propósito generalizado.
+  - 1º argumento: `"%d\t%d\n"`: string a ser impressa. Cada `%□` indica um local
+      onde os próximos argumentos serão substituídos, onde □ representa um
+      caractere indicando o tipo de dado do argumento.
   - 2º e 3º argumentos: `fahr, celsius`: serão substituídos no local de cada
       `%d`, respectivamente.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **OBS**: `printf` não é uma função nativa da linguagem C, e sim parte da
 biblioteca padrão de funções `stdio.h`.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 O programa previamente escrito possui algumas características que podem ser
 melhoradas.
@@ -219,19 +214,16 @@ melhoradas.
 Este problema é trivial de ser resolvido. Pode-se especificar a largura de cada
 `%d` com um número, por exemplo: `printf("%3d%6d\n", fahr, celsius);`
 
-Isto resulta em uma tabela onde o primeiro valor se encontra em um campo de
-três dígitos de largura e o segundo valor em um campo com seis dígitos de
-largura:
+Isto resulta em uma tabela onde o primeiro valor se encontra em um campo de três
+dígitos de largura e o segundo valor em um campo com seis dígitos de largura:
 
-```text
-  0   -17
- 20     6
- 40     4
- 60    15
- 80    26
-100    37
-...   ...
-```
+      0   -17
+     20     6
+     40     4
+     60    15
+     80    26
+    100    37
+    ...   ...
 
 * 2º problema: a conversão de temperaturas não é muito acurada.
 
@@ -240,7 +232,7 @@ exemplo, a temperatura de 0°F é aproximadamente -17.8°C e não -17°C. São
 necessárias mudanças no programa para a realização de aritmética de ponto
 flutuante.
 
-```C
+~~~ C
 #include <stdio.h>
 
 /* print Fahrenheit-Celsius table for fahr = 0, 20,..., 300, floating-point
@@ -262,14 +254,14 @@ main()
         fahr = fahr + step;
     }
 }
-```
+~~~
 
 Principais diferenças:
 
 * `fahr` e `celsius` são do tipo `float`.
 * Fórmula de conversão escrita naturalmente.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **OBS**: Ao se utilizar um ponto decimal em uma constante indica-se que o seu
 valor é do tipo ponto-flutuante.
@@ -287,21 +279,19 @@ que misturem os tipos, é recomendado explicitar constantes do tipo ponto-
 flutuante com a adição do ponto decimal. Por exemplo: `(fahr - 32.0)`. Tal
 medida aumenta a clareza do seu programa para leitores humanos.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 A saída da nova versão do programa é a seguinte:
 
-```text
-  0  -17.8
- 20   -6.7
- 40    4.4
-...    ...
-```
+      0  -17.8
+     20   -6.7
+     40    4.4
+    ...    ...
 
 A formatação da saída é ajustada através de parâmetros passados à `string` do
-`printf`. `%3.0f`indica um número de ponto-flutuante com três dígitos de
-largura e sem parte fracionária. `%6.1f` indica um número de ponto-flutuante
-com seis dígitos de largura e m dígito após o ponto.
+`printf`. `%3.0f`indica um número de ponto-flutuante com três dígitos de largura
+e sem parte fracionária. `%6.1f` indica um número de ponto-flutuante com seis
+dígitos de largura e m dígito após o ponto.
 
 Algumas opções de formatação são as seguintes:
 
@@ -316,20 +306,20 @@ Algumas opções de formatação são as seguintes:
 Outros tipos de dados reconhecidos por `printf` incluem: `%o` p/ octal, `%x` p/
 hexadecimal, `%c` p/ caractere, `%s` p/ string e `%%` p/ si próprio.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 #### Exercícios 1.2
 
 * [Exercise 1-3](./Exercise_1-03.c)  
 * [Exercise 1-4](./Exercise_1-04.c)
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ### 1.3 The `for` statement
 
 Abaixo há uma variação do conversor de temperatura:
 
-```C
+~~~ C
 #include <stdio.h>
 
 /* print Fahrenheit-Celsius table */
@@ -341,34 +331,34 @@ main()
     for (fahr = 0, fahr <= 300; fahr = fahr + 20)
         printf("%3d%6.1f\n", fahr, (5.0/9.0) * (fahr - 32));
 }
-```
+~~~
 
-Principal mudança: eliminação da maioria das variáveis. Somente `fahr` é
-mantida e foi mudada para um tipo `int`.
+Principal mudança: eliminação da maioria das variáveis. Somente `fahr` é mantida
+e foi mudada para um tipo `int`.
 
 Os limites superior e inferior e o tamanho do passo foram transformados em
 constantes e a expressão de cálculo da temperatura em °C agora aparece como
 terceiro argumento do `printf`.
 
-Funcionamento do laço `for`:
-Há três itens entre os parênteses, separados por ";". O primeiro item trata da
-inicialização, antes de o laço ser iniciado. O segundo item é a condição de
-teste; enquanto verdadeira o laço é executado. O terceiro item é o passo de
-incremento, que é executado após a execução do corpo do laço. O laço é
-finalizado quando a condição de teste (segundo item) se torna falsa.
+Funcionamento do laço `for`: Há três itens entre os parênteses, separados por
+";". O primeiro item trata da inicialização, antes de o laço ser iniciado. O
+segundo item é a condição de teste; enquanto verdadeira o laço é executado. O
+terceiro item é o passo de incremento, que é executado após a execução do corpo
+do laço. O laço é finalizado quando a condição de teste (segundo item) se torna
+falsa.
 
 Como escolher entre `while` e `for`? A escolha é arbitrária, dependendo apenas
-de qual construção aparenta ser mais clara. O `for` é usualmente mais
-apropriado para laços onde a inicialização e o incremento são declarações
-únicas e relacionadas logicamente, pois é mais compacto que o `while`.
+de qual construção aparenta ser mais clara. O `for` é usualmente mais apropriado
+para laços onde a inicialização e o incremento são declarações únicas e
+relacionadas logicamente, pois é mais compacto que o `while`.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 #### Exercícios 1.3
 
 * [Exercise 1-5](./Exercise_1-05.c)
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ### 1.4 Symbolic Constants
 
@@ -376,17 +366,17 @@ apropriado para laços onde a inicialização e o incremento são declarações
 prejudica a compreensão do código e dificulta a alteração de valores de uma
 maneira sistemática, caso seja necessária.
 
-A melhor maneira de lidar com este problema é usar nome significativos. O uso
-da linha:
+A melhor maneira de lidar com este problema é usar nome significativos. O uso da
+linha:
 
-```C
+~~~ C
 #define name replacement_text
-```
+~~~
 
 define um *nome simbólico* ou *constante simbólica*. Qualquer ocorrência de
 `name` será substituída por `replacement_text`.
 
-```C
+~~~ C
 #include <stdio.h>
 
 #define LOWER 0     /* lower limit of table */
@@ -401,13 +391,13 @@ main()
     for (fahr = LOWER; fahr <= UPPER; fahr = fahr + STEP)
         printf("%3d%6.1f\n", fahr, (5.0/9.0) * (fahr - 32));
 }
-```
+~~~
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **OBS**: constantes simbólicas costumam ser escritas em caixa-alta.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ### 1.5 Character Input and Output
 
@@ -424,15 +414,14 @@ caractere de cada vez. As mais simples são a `getchar`e `putchar`.
 
 * `getchar`: cada vez que é chamada lê o próximo caractere de entrada de um
   fluxo de texto e o retorna como o seu valor. Ex: `c = getchar();`.
-* `putchar`: cada vez que é chamada imprime o conteúdo da variável inteira
-  `c` como um caractere, usualmente para a tela. Ex: `putchar(c);`.
+* `putchar`: cada vez que é chamada imprime o conteúdo da variável inteira `c`
+  como um caractere, usualmente para a tela. Ex: `putchar(c);`.
 
 #### 1.5.1 File Copying
 
-Exemplo de programa que copia sua entrada para a sua saída um caractere por
-vez:
+Exemplo de programa que copia sua entrada para a sua saída um caractere por vez:
 
-```C
+~~~ C
 #include <stdio.h>
 
 /* copy input to output; 1st version */
@@ -446,12 +435,12 @@ main()
         c = getchar();
     }
 }
-```
+~~~
 
-Todos os caracteres (na tela ou no teclado) são armazenados internamente como
-um padrão de bits. O tipo `char` é específico para armazenar dados de
-caractere, mas qualquer tipo inteiro pode ser usado. O tipo `int` foi utilizado
-por um motivo importante.
+Todos os caracteres (na tela ou no teclado) são armazenados internamente como um
+padrão de bits. O tipo `char` é específico para armazenar dados de caractere,
+mas qualquer tipo inteiro pode ser usado. O tipo `int` foi utilizado por um
+motivo importante.
 
 Para se distinguir o final de uma entrada de outros dados válidos, é necessário
 saber se o último caractere obtido é o `EOF` (end of file). A variável `c`
@@ -462,7 +451,7 @@ Programadores de C mais experientes podem escrever esse programa de uma forma
 mais compacta ao colocar a atribuição `c = getchar();` dentro do teste do laço
 `while`:
 
-```C
+~~~ C
 #include <stdio.h>
 
 /* copy input to output; 2nd version */
@@ -473,40 +462,40 @@ main()
     while ((c = getchar()) != EOF)
         putchar(c);
 }
-```
+~~~
 
 Esta é uma versão mais compacta do mesmo programa. Uma importante observação a
 ser fazer é que os parênteses ao redor da atribuição dentro da condição são
 necessários. A precedência de `!=` é maior do que a do `=`. Caso os parênteses
 sejam omitidos a expressão:
 
-```C
+~~~ C
 c = getchar() != EOF
-```
+~~~
 
 é equivalente a:
 
-```C
+~~~ C
 c = (getchar() != EOF)
-```
+~~~
 
-Tendo o efeito indesejado de definir `c` como 0 ou 1, dependendo se a chamada
-de `getchar` atingiu ou não o final do arquivo.
+Tendo o efeito indesejado de definir `c` como 0 ou 1, dependendo se a chamada de
+`getchar` atingiu ou não o final do arquivo.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ##### Exercícios 1.5.1
 
 * [Exercise 1-6](./Exercise_1-06.c)
 * [Exercise 1-7](./Exercise_1-07.c)
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 #### 1.5.2 Character Counting
 
 O próximo programa conta caracteres; é similar ao programa de cópia.
 
-```C
+~~~ C
 #include <stdio.h>
 
 /* count characters in input, 1st version */
@@ -519,7 +508,7 @@ main()
         ++nc;
     printf("%ld\n", nc);
 }
-```
+~~~
 
 A declaração `++nc` apresenta um novo operador, `++`, que significa *incremento
 por um*; equivalente a `nc = nc + 1`. Mais detalhes no capítulo 2.
@@ -530,10 +519,10 @@ de um `int`. `long`s são pelo menos 32-bits. Como em algumas máquinas o tipo
 um overflow. `%ld` representa um argumento `long` ao `printf`.
 
 O uso de um `double` (double precision `float`) permite o armazenamento de
-números ainda maiores. Também é possível utilizar uma laço `for` para
-reescrever o programa.
+números ainda maiores. Também é possível utilizar uma laço `for` para reescrever
+o programa.
 
-```C
+~~~ C
 #include <stdio.h>
 
 /* count characters in input; 2nd version */
@@ -545,33 +534,32 @@ main()
         ;
     printf("%.0f\n", nc);
 }
-```
+~~~
 
 `printf` usa `%f` tanto para `float` quanto `double`; `%.0f` suprime a parte
 decimal do número.
 
 O corpo desse laço é vazio, pois todo o trabalho necessário já é realizado pelo
-teste e o incremento. As regras gramaticais do C requerem que a declaração
-`for` possua um corpo. O uso de um ponto-e-vírgula isolado, chamado de um *null
-statement* (declaração nula), satisfaz esse requerimento.
+teste e o incremento. As regras gramaticais do C requerem que a declaração `for`
+possua um corpo. O uso de um ponto-e-vírgula isolado, chamado de um
+*null statement* (declaração nula), satisfaz esse requerimento.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **OBS**: Nota-se que se uma entrada nula é fornecida ao programa, o teste do
 laço falha após a primeira chamada de `getchar()`, produzindo zero, a resposta
-certa. A vantagem do uso de laços como `for` e `while` é que o teste se dá
-antes da execução do corpo; se o teste é falso, o corpo não é executado.
-Programas devem saber lidar com entradas de tamanho zero e outras condições de
-contorno.
+certa. A vantagem do uso de laços como `for` e `while` é que o teste se dá antes
+da execução do corpo; se o teste é falso, o corpo não é executado. Programas
+devem saber lidar com entradas de tamanho zero e outras condições de contorno.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 #### 1.5.3 Line Counting
 
 Este próximo programa conta linhas de entrada. Como cada linha é terminada por
 um "nova linha", basta contar os "nova linha".
 
-```C
+~~~ C
 #include <stdio.h>
 
 /* count lines in input */
@@ -585,7 +573,7 @@ main()
             ++nl;
     printf("%d\n", nl);
 }
-```
+~~~
 
 Algumas observações podem ser feitas a respeito deste programa:
 
@@ -593,12 +581,12 @@ Algumas observações podem ser feitas a respeito deste programa:
   atribuição. ATENÇÃO: ter **muito cuidado** para não escrever um `=` quando se
   deseja realizar uma comparação!
 * Um caractere escrito entre aspas simples representa um valor inteiro igual ao
-  valor do caractere no conjunto de caracteres da máquina. Isto é conhecido
-  como um *character constant*. Por exemplo: `'A'` vale `65` na tabela ASCII.
-  Sequências de escape como `\n` também são *character constants* válidas;
-  `\n` equivale a `10` na tabela ASCII.
+  valor do caractere no conjunto de caracteres da máquina. Isto é conhecido como
+  um *character constant*. Por exemplo: `'A'` vale `65` na tabela ASCII.
+  Sequências de escape como `\n` também são *character constants* válidas; `\n`
+  equivale a `10` na tabela ASCII.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ##### Exercícios 1.5.3
 
@@ -606,7 +594,7 @@ Algumas observações podem ser feitas a respeito deste programa:
 * [Exercise 1-9](./Exercise_1-09.c)
 * [Exercise 1-10](./Exercise_1-10.c)
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 #### 1.5.4 Word Counting
 
@@ -614,7 +602,7 @@ Este programa conta linhas, palavras e caracteres. Considera-se uma palavra
 qualquer sequência de caracteres que não contém um espaço, tab ou nova linha.
 Esta é uma versão simplificada do programa `wc` do UNIX.
 
-```C
+~~~ C
 #include <stdio.h>
 
 #define IN 1 /* inside a word */
@@ -641,7 +629,7 @@ main()
     }
     printf("%d %d %d\n", nl, nw, nc);
 }
-```
+~~~
 
 Uma breve descrição do funcionamento deste programa: para cada primeiro
 caractere de uma palavra, uma nova palavra é contada. A variável `state`
@@ -655,10 +643,10 @@ maneira que não se faz necessário analisar as outras expressões caso uma dela
 seja verdadeira.
 
 O uso dos condicionais `if/else` é intuitivo. Caso o teste no `if` seja
-verdadeiro, a sua declaração é executada. Caso contrário somente a declaração
-do `else` é executada.
+verdadeiro, a sua declaração é executada. Caso contrário somente a declaração do
+`else` é executada.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ##### Exercícios 1.5.4
 
@@ -666,9 +654,9 @@ do `else` é executada.
 > input are most likely to uncover bugs if there are any?
 
 **R.**: A realização de testes de unidade pode ajudar a encontrar bugs ou casos
-previamente não considerados (*edge cases*). O uso de palavras grandes,
-pequenas e hifenizadas podem cobrir a maioria dos casos. Já para as condições
-de contorno pode-se testar:
+previamente não considerados (*edge cases*). O uso de palavras grandes, pequenas
+e hifenizadas podem cobrir a maioria dos casos. Já para as condições de contorno
+pode-se testar:
 
 * Palavras com múltiplos espaços;
 * Textos maiores que 2GB;
@@ -681,11 +669,11 @@ de contorno pode-se testar:
 
 e muitos outros casos.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 * [Exercise 1-12](./Exercise_1.12.c)
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ### 1.6 Arrays
 
@@ -696,7 +684,7 @@ Como há doze categorias de entrada é conveniente utilizar um vetor (array) par
 guardar a ocorrência de cada um dos dígitos ao invés de utilizar dez variáveis.
 O código do programa segue abaixo:
 
-```C
+~~~ C
 #include <stdio.h>
 
 /* count digits, white space, others */
@@ -722,16 +710,14 @@ main()
         printf(" %d"m ndigit[i]);
     printf(", white space = %d, other = %d\n", nwhite, nother);
 }
-```
+~~~
 
 A saída deste programa tendo como entrada a si mesmo é:
 
-```text
-digits = 9 3 0 0 0 0 0 0 0 1, white space = 123, other = 345
-```
+    digits = 9 3 0 0 0 0 0 0 0 1, white space = 123, other = 345
 
-A declaração `int ndigit[10]` declara `ndigit` como um vetor de 10 inteiros.
-Os subscritos de um vetor sempre começam do zero em C, então os elementos são
+A declaração `int ndigit[10]` declara `ndigit` como um vetor de 10 inteiros. Os
+subscritos de um vetor sempre começam do zero em C, então os elementos são
 `ndigit[0], ndigit[1], ..., ndigit[9]`. Isto se reflete nos laços `for` que
 inicializam e imprimem o vetor.
 
@@ -739,49 +725,49 @@ Um subscrito pode ser qualquer expressão inteira, o que inclui variáveis
 inteiras como `i`, e constantes inteiras.
 
 Este programa depende das propriedades da representação de caracteres dos
-dígitos  O teste `if(c >= '0' && c <= '9')` determina se o caractere em `c` é
-um dígito. Se for, o valor numérico daquele dígito é `c - '0'`. Isto só
-se `'0', '1', ..., '9'` tem valores crescentes consecutivamente. Felizmente,
-isto é válido para todos os conjuntos de caracteres.
+dígitos  O teste `if(c >= '0' && c <= '9')` determina se o caractere em `c` é um
+dígito. Se for, o valor numérico daquele dígito é `c - '0'`. Isto só se `'0',
+'1', ..., '9'` tem valores crescentes consecutivamente. Felizmente, isto é
+válido para todos os conjuntos de caracteres.
 
 Por definição, `char`s são apenas inteiros pequenos, então variáveis `char`s e
 constantes são idênticas a `int`s em operações aritméticas. Isto é natural e
 conveniente; por exemplo `c - '0'` é uma expressão inteira com um valor entre 0
-e 9 correspondendo ao caractere `'0'` ao `'9'` armazenado em `c`, e portanto
-um subscrito válido para o vetor `ndigit`.
+e 9 correspondendo ao caractere `'0'` ao `'9'` armazenado em `c`, e portanto um
+subscrito válido para o vetor `ndigit`.
 
 A sequência no laço `while` decide se o caractere é um dígito, branco, ou outro
 tipo.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **OBS**: O padrão condicional `if/else if/.../else` representa um decisão
 multi-caminho. Se o último `else` for omitido e nenhum dos condicionais
 anteriores for verdadeiro, nada será feito. O uso da declaração `switch` que
 será discutida no capítulo 4, é uma alternativa para essa construção.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 #### Exercícios 1.6
 
 * [Exercise 1-13](./Exercise_1-13.c)
 * [Exercise 1-14](./Exercise_1-14.c)
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ### 1.7 Functions
 
-Uma função provê uma maneira conveniente de se encapsular alguma computação,
-que pode então ser usada sem se preocupar a respeito de sua implementação.
-Funções bem implementadas permitem ignorar *como* um trabalho é feito, saber
-*o quê* é feito é suficiente.
+Uma função provê uma maneira conveniente de se encapsular alguma computação, que
+pode então ser usada sem se preocupar a respeito de sua implementação. Funções
+bem implementadas permitem ignorar *como* um trabalho é feito, saber *o quê* é
+feito é suficiente.
 
 Como o C não possui um operador de exponenciação, iremos escrever uma função
-`power(m,n)`, por razões ilustrativas, para elevar um inteiro `m` a uma
-potência inteira positiva `n`. A biblioteca padrão já possui uma função
-`pow(x,y)` que calcula $x^y$.
+`power(m,n)`, por razões ilustrativas, para elevar um inteiro `m` a uma potência
+inteira positiva `n`. A biblioteca padrão já possui uma função `pow(x,y)` que
+calcula xʸ.
 
-```C
+~~~ C
 #include <stdio.h>
 
 int power(int m, int n);
@@ -805,9 +791,9 @@ int power(int base, int n){
         p = p * base;
     return p;
 }
-```
+~~~
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **OBS**: A linha `int power(int m, int n)` representa a *declaração* da função.
 O bloco de código na parte de baixo é a *definição* da função.
@@ -816,60 +802,59 @@ A partir da versão 1999 do padrão ISO C, é ilegal (uma violação de restriç
 chamar uma função sem uma declaração visível; a declaração precisa preceder a
 chamada.
 
-Para um simples programa como este, pode-se simplesmente escrever a
-definição completa de `power()` antes da definição de `main()` (pois uma
-definição também provê uma declaração), mas para casos mais complexos (como
-chamadas recursivas) frequentemente é necessário prover uma declaração
-separada.
+Para um simples programa como este, pode-se simplesmente escrever a definição
+completa de `power()` antes da definição de `main()` (pois uma definição também
+provê uma declaração), mas para casos mais complexos (como chamadas recursivas)
+frequentemente é necessário prover uma declaração separada.
 
 Para programas maiores, é comum coletar todas as *declarações* de funções em um
 arquivo de cabeçalho (`foo.h`, por exemplo), e as definições correspondentes em
-um arquivo fonte (`foo.c`, por exemplo). Uma diretiva `#include "foo.h"` é
-usada para fazer as declarações visíveis em outros arquivos. Isto é
-frequentemente visto mais a frente no livro.
+um arquivo fonte (`foo.c`, por exemplo). Uma diretiva `#include "foo.h"` é usada
+para fazer as declarações visíveis em outros arquivos. Isto é frequentemente
+visto mais a frente no livro.
 
 (Nas versões de 1990 e anteriores do C, que é o que o K&R2 cobre, existem casos
-onde você pode chamar uma função sem uma declaração visível -- mas ainda é uma
+onde você pode chamar uma função sem uma declaração visível — mas ainda é uma
 boa ideia prover declarações explícitas de qualquer forma.)
 
-Incidentalmente, a declaração do programa principal na verdade deveria ser
-`int main(void)` ao invés de apenas `main()`.
+Incidentalmente, a declaração do programa principal na verdade deveria ser `int
+main(void)` ao invés de apenas `main()`.
 
 Terminologia: um "protótipo" é uma declaração de função que especifica os tipos
 dos parâmetros.
 
-```C
+~~~ C
 int power(int base, int n);     /* uma declaração que também é um protótipo */
 int power(int, int);            /* a mesma coisa */
 int power();                    /* uma declaração mas não um protótipo */
-```
+~~~
 
 (Nomes de parâmetros são necessários em uma definição, mas opcionais em uma
 declaração individual.)
 
 Como um caso especial, o protótipo para uma função sem parâmetros usa `(void)`,
-pois parênteses vazios já indicam uma declaração não-prototípica. Então
-`int main(void)` é um protótipo, mas `int main()` não é.
+pois parênteses vazios já indicam uma declaração não-prototípica. Então `int
+main(void)` é um protótipo, mas `int main()` não é.
 
-Declarações não-prototípicas são "obsolescentes", o que significa que elas
-podem em teoria ser removidas em um futuro padrão da linguagem. Mas elas são
+Declarações não-prototípicas são "obsolescentes", o que significa que elas podem
+em teoria ser removidas em um futuro padrão da linguagem. Mas elas são
 obsolescentes desde 1989, e até mesmo no novo padrão ISO C de 2011 o comitê não
 achou apropriado removê-las.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **Excelente resposta de Keith Thompson no
 [stackoverflow](https://stackoverflow.com/questions/8827170)**
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 Definições de funções podem aparecer em qualquer ordem, em um arquivo fonte ou
 vários, apesar de nenhuma função poder ser dividida entre arquivos.
 
-A função `power` é chamada duas vezes por `main`, na linha
-`printf("%d %d %d\n", i, power(2,i), power(-3,i));`. As chamadas de `power`
-como argumento no `printf` tem tipo inteiro (`%d`) pois a função `power`, como
-previamente declarada, tem como retorno um `int`.
+A função `power` é chamada duas vezes por `main`, na linha `printf("%d %d %d\n",
+i, power(2,i), power(-3,i));`. As chamadas de `power` como argumento no `printf`
+tem tipo inteiro (`%d`) pois a função `power`, como previamente declarada, tem
+como retorno um `int`.
 
 * Variável → argumento real
 * Parâmetro → argumento formal
@@ -890,8 +875,8 @@ retornado ao ambiente de execução do programa. Por costume:
 * retorno == 0 → terminação normal
 * retorno != 0 → erro ou condição não-usual de terminação.
 
-A declaração `int power(int base, int n);` é um *protótipo de função*. Ela diz
-a `main` que `power` é uma função que espera dois argumentos `int` e retorna um
+A declaração `int power(int base, int n);` é um *protótipo de função*. Ela diz a
+`main` que `power` é uma função que espera dois argumentos `int` e retorna um
 `int`. Este protótipo tem que concordar com a definição e usos de `power`, caso
 contrário isto é considerado um erro.
 
@@ -900,13 +885,13 @@ nomes dos parâmetros da definição da função, sendo, inclusive, opcionais; o
 protótipo poderia ter sido escrito como `int power(int, int)`. Nomes
 bem-escolhidos, porém, são boa documentação.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 #### Exercícios 1.7
 
 * [Exercise 1-15](./Exercise_1.15.c)
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ### 1.8 Arguments - Call by Value
 
@@ -917,7 +902,7 @@ invés dos argumentos em si.
 
 Abaixo há um exemplo de uma versão de `power` que faz uso deste recurso.
 
-```C
+~~~ C
 /* power: raise base to n-th power; n >= 0; version 2 */
 int power(int base, int n)
 {
@@ -927,11 +912,11 @@ int power(int base, int n)
         p = p * base;
     return p;
 }
-```
+~~~
 
 O parâmetro `n` é utilizado como uma variável temporária, e é decrementado até
-chegar a zero. Não há necessidade de uma variável `i`. O que quer que seja
-feito a `n` dentro de `power` não tem efeito no argumento original.
+chegar a zero. Não há necessidade de uma variável `i`. O que quer que seja feito
+a `n` dentro de `power` não tem efeito no argumento original.
 
 Caso seja necessário, é possível fazer uma função modificar diretamente o valor
 de uma variável. Neste caso, a chamada deve prover o endereço da variável (um
@@ -952,7 +937,7 @@ Iremos dividir esse programa em duas funções: uma que lê a próxima linha
 (`getline`) e outra que salva a nova linha caso ela seja a mais longa que a
 linha mais longa anterior.
 
-```C
+~~~ C
 #include <stdio.h>
 #define MAXLINE 1000    /* maximum input line length */
 
@@ -1002,7 +987,7 @@ void copy(char to[], char from[])
     while ((to[i] = from[i]) != '\0')
         ++i
 }
-```
+~~~
 
 As funções `main` e `getline` se comunicam através de um par de argumentos e o
 valor de retorno. Nota-se que o segundo argumento de `getline` indica para a
@@ -1035,7 +1020,7 @@ inseridos do que foi alocado ao vetor. Overflows podem ser catastróficos em
 programas maiores, resultando em graves problemas e possíveis falhas de
 segurança.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 #### Exercícios 1.9
 
@@ -1044,37 +1029,36 @@ segurança.
 * [Exercise 1-18](./Exercise_1-18.c)
 * [Exercise 1-19](./Exercise_1-19.c)
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ### 1.10 External Variables and Scope
 
-Variáveis declaradas em uma função são privadas ou locais aquela função.
-Nenhuma outra função pode ter acesso direto a elas (`line`, `longest`, etc só
-são acessíveis em `main`). Varíaveis com o mesmo nome em diferentes funções
-(como `i` em `getline` e `i` em `copy`) também não possuem relação entre si.
-Variáveis só existem enquanto a função é chamada, desaparecendo após a sua
-saída; estas possuem o nome de *variáveis automáticas*.
+Variáveis declaradas em uma função são privadas ou locais aquela função. Nenhuma
+outra função pode ter acesso direto a elas (`line`, `longest`, etc só são
+acessíveis em `main`). Varíaveis com o mesmo nome em diferentes funções (como
+`i` em `getline` e `i` em `copy`) também não possuem relação entre si. Variáveis
+só existem enquanto a função é chamada, desaparecendo após a sua saída; estas
+possuem o nome de *variáveis automáticas*.
 
 Variáveis automáticas não retem seu valor entre chamadas, sendo necessário a
-definição de seus valores a cada chamada, caso contrário, elas irão conter
-lixo.
+definição de seus valores a cada chamada, caso contrário, elas irão conter lixo.
 
-Uma alternativa é utilizar varíaveis externas a todas as funções. Como
-variáveis externas são globalmente acessíveis, elas podem ser usadas ao invés
-de listas de argumentos para a comunicação de dados entre funções. Além disso,
-elas retém sua existência permanentemente, mantendo assim seus valores.
+Uma alternativa é utilizar varíaveis externas a todas as funções. Como variáveis
+externas são globalmente acessíveis, elas podem ser usadas ao invés de listas de
+argumentos para a comunicação de dados entre funções. Além disso, elas retém sua
+existência permanentemente, mantendo assim seus valores.
 
 Uso de uma variável externa:
 
-* *definição*: necessária uma única vez, fora de qualquer função, **reserva
-  espaço para a variável**.
+* *definição*: necessária uma única vez, fora de qualquer função,
+  **reserva espaço para a variável**.
 * *declaração*: uma variável também precisa ser declarada em cada função que
-  quer acessá-la; isto determina o tipo da variável, **espaço não é alocado**.
-  A declaração pode ser um `extern` explícito ou ser implícito do contexto.
+  quer acessá-la; isto determina o tipo da variável, **espaço não é alocado**. A
+  declaração pode ser um `extern` explícito ou ser implícito do contexto.
 
 Abaixo segue uma nova versão do programa longest-line com variáveis externas.
 
-```C
+~~~ C
 #include <stdio.h>
 
 #define MAXLINE 1000    /* maximum input line size */
@@ -1132,13 +1116,13 @@ void copy(void)
     while ((longest[i] = line[i]) != '\0')
         ++i;
 }
-```
+~~~
 
 As variáveis externas são definidas nas primeiras linhas das funções acima, que
 afirmam seu tipo e alocam armazenamento. Definições externas são sintaticamente
 iguais a definições de variáveis locais. Antes de uma função poder usar uma
-variável externa, o nome da variável precisa ser passado a função; isto pode
-ser feito usando a palavra reservada `extern`.
+variável externa, o nome da variável precisa ser passado a função; isto pode ser
+feito usando a palavra reservada `extern`.
 
 Em alguns casos a declaração `extern` pode ser omitida. Se a definição de uma
 variável externa ocorre diretemante no arquivo fonte antes de seu uso em alguma
@@ -1148,28 +1132,27 @@ declaração se faz redundante.
 No caso de um programa que é dividido entre vários arquivos, se uma variável é
 declara em um *arquivo1* e usada no *arquivo2* e *arquivo3*, as declarações
 `extern` se fazem necessárias. O mais comum é agrupar todas as declarações
-`extern` de variáveis e funções em um arquivo separado, conhecido como
-*header*, incluído com um `#include` no início de cada arquivo fonte (Ex:
-`<stdio.h>`).
+`extern` de variáveis e funções em um arquivo separado, conhecido como *header*,
+incluído com um `#include` no início de cada arquivo fonte (Ex: `<stdio.h>`).
 
-As versões especializadas de `getline` e `copy` não possuem argumentos, mas
-usam a palavra `void` para explicitar uma lista vazia por razões de
-compatibilidade com programas C mais antigos.
+As versões especializadas de `getline` e `copy` não possuem argumentos, mas usam
+a palavra `void` para explicitar uma lista vazia por razões de compatibilidade
+com programas C mais antigos.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **OBS**: Prestar atenção na diferença entre "definição" e "declaração"
 previamente citadas!
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 Apesar de parecer simplificar comunicações, o uso de variáveis externas possui
 diversos riscos e desvantagens: variáveis podem ser mudadas de maneiras
 inesperadas e o programa se torna mais difícil de modificar. A segunda versão
-deste programa é inferior a primeira, tanto por estas razões quanto pelo fato
-de que ele destrói a generalização e versatilidade das duas funções.
+deste programa é inferior a primeira, tanto por estas razões quanto pelo fato de
+que ele destrói a generalização e versatilidade das duas funções.
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 #### Exercícios 1.10
 
@@ -1179,4 +1162,4 @@ de que ele destrói a generalização e versatilidade das duas funções.
 * [Exercise 1-23](./Exercise_1-23.c)
 * [Exercise 1-24](./Exercise_1-24.c)
 
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
