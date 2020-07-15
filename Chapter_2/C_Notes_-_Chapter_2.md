@@ -501,9 +501,9 @@ As regras de conversão são mais complicadas quando operandos `unsigned` estão
 envolvidos, pois dependem do tamanho dos diferentes tipos inteiros em cada
 máquina. Assumindo `int` como 16 bits e `long` como 32 bits, temos:
 
-* -1`long` < 1`unsigned int`; pois 1`unsigned int` → 1`signed long`
-* -1`long` > 1`unsigned long`; pois -1`long` → `unsigned long`, tornando-se um
-  número positivo grande.
+* `-1L` < `1U`; pois `1U` é promovido a `signed long`
+* `-1L` > `1UL`; pois `-1L` é promovido a `unsigned long`, tornando-se um número
+  positivo grande.
 
 Inteiros grandes são convertidos para inteiros menores ou para `char`s
 descartando os bits de maior ordem excedentes.
@@ -551,4 +551,67 @@ void srand(unsigned int seed)
 --------------------------------------------------------------------------------
 
 ### 2.8 Increment and Decrement Operators
+
+A linguagem C possui dois operadores para incremento e decremento de variáveis:
+
+* `++` → *incremento em 1*
+  - `x = ++n` → **pré**-incremento; se `n` = 5, então `x` = 6 e `n` = 6
+  - `x = n++` → **pós**-incremento; se `n` = 5, então `x` = 5 e `n` = 6
+* `--` → *decremento em 1*
+  - `x = --n` → **pré**-decremento; se `n` = 5, então `x` = 4 e `n` = 4
+  - `x = n--` → **pós**-decremento; se `n` = 5, então `x` = 5 e `n` = 4
+
+Em casos onde apenas o efeito do incremento/decremento importa, e não o valor em
+si, tanto a notação em *prefixo* quanto a em *pósfixo* possuem o mesmo
+comportamento.
+
+Abaixo temos alguns exemplos de situações onde o uso da notação em prefixo ou
+pósfixo fazem diferença no comportamento da função:
+
+~~~ C
+/* squeeze:  delete all c from s */
+void squeeze(char s[], int c)
+{
+  int i, j;
+
+  for (i = j = 0; s[i] != '\0'; i++)
+      if (s[i] != c)
+          s[j++] = s[i];
+  s[j] = '\0';
+}
+~~~
+
+Cada vez que um não-`c` ocorre, ele é copiado para o posição `j` atual, e só
+então `j` é incrementado para estar pronto para o próximo caractere.
+
+--------------------------------------------------------------------------------
+
+~~~ C
+/* strcat:  concatenate t to end of s; s must be big enough */
+void strcat(char s[], char t[])
+{
+  int i, j;
+
+  i = j = 0;
+  while (s[i] != '\0')    /* find end of s */
+    i++;
+  while ((s[i++] = t[j++]) != '\0')   /* copy t */
+    ;
+}
+~~~
+
+Conforme cada caractere é copiado de `t` para `s`, o `++` pósfixo é aplicado
+para ambos `i` e `j` para garantir que eles estejam na posição para a próxima
+iteração através do laço.
+
+--------------------------------------------------------------------------------
+
+#### Exercícios 2.8
+
+* [Exercise 2-4](./Exercise_2-4.c)
+* [Exercise 2-5](./Exercise_2-5.c)
+
+--------------------------------------------------------------------------------
+
+### 2.9 Bitwise Operators
 
