@@ -1,15 +1,34 @@
 /**
- * Exercise 2-6 - K&R 2nd ED
+ * Exercise 2-9 - K&R 2nd ED
  * =========================
  * > by ANK-dev
  *
- * setbits:  returns an `x` int with `n` bits at position `p` set to the
- *           rightmost `n` bits of an `y` int
- * -----------------------------------------------------------------------------
+ * > In a two's complement number system, `x &= (x-1)` deletes the rightmost
+ * > 1-bit in `x`. Explain why. Use this observation to write a faster version
+ * > of `bitcount`.
+ *
+ * __ANSWER__: Given `x` == dₙ…d₁1, where each dₖ, k ∈ ℕ / n ≤ k ≤ 0, is a
+ * binary digit, `x-1` is equal to dₙ…d₁0. Since all the other terms are
+ * unchanged, the bitwise AND (&) of both terms will only affect the different
+ * bits, which, in this case, is d₀, resulting in the operation 1 & 0 which is
+ * equal to 0.
+ *
+ * Given `x` == dₙ…dₙ₋ₖ10…0, where each dₖ, k ∈ ℕ / n ≤ k ≤ 0, is a binary
+ * digit, `x-1` is equal to dₙ…dₙ₋ₖ00…0. Since all the other terms are
+ * unchanged, the bitwise AND (&) of both terms will only affect the different
+ * bits, which, in this case, is dₙ₋ₖ₋₁, resulting in the operation 1 & 0 which
+ * is equal to 0.
+ *
+ * _Q.E.D._
+ *
+ *******************************************************************************
+ *
+ *
+ * bitcount (faster version):  counts the number of 1-bits in `x`
+ * --------------------------------------------------------------
  */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <ctype.h>
 
 #define INT_BIN_SIZE 32
@@ -19,67 +38,53 @@
 #define HEX_STRING_LEN (INT_HEX_SIZE + PREFIX)
 #define BIN_STRING_LEN (INT_BIN_SIZE + PREFIX)
 
-unsigned setbits(unsigned int x, int p, int n, unsigned int y);
+int bitcount(unsigned x);
 char *decToBin(unsigned int dec, char bin[]);
 int validateInput(char in[]);
 char *getline(char s[]);
 int stringToInt(char in[], int in_type, int var);
 
+
 int main()
 {
-    char output[INT_BIN_SIZE + PADDING + 1];
+    int input_type;
+    unsigned x = 0, result;
     char input[BIN_STRING_LEN + 1];
-    int input_type, p, n;
-    unsigned int x = 0, y = 0, result;
-    
-    printf("setbits\n=======\n\n");
-    printf("> returns an `x` int with `n` bits at position `p` set to the "
-           "rightmost `n` bits of an `y` int\n\n");
-    
+    char output[INT_BIN_SIZE + PADDING + 1];
+
+    printf("bitcount\n========\n");
+    printf("> counts the number of 1-bits in `x`\n\n");
+
     /* get the `x` variable */
     do {
         printf("Type the \"x\" variable\n(0b for binary + %d digits, "
-            "0x for hexadecimal + %d digits): ", INT_BIN_SIZE, INT_HEX_SIZE);
+               "0x for hexadecimal + %d digits): ", INT_BIN_SIZE, INT_HEX_SIZE);
     } while (( input_type = validateInput(getline(input)) ) == 0);
-    
+
     x = stringToInt(input, input_type, x);
 
-    /* get the `y` variable */
-    do {
-        printf("\nType the \"y\" variable\n(0b for binary + %d digits, "
-            "0x for hexadecimal + %d digits): ", INT_BIN_SIZE, INT_HEX_SIZE);
-    } while (( input_type = validateInput(getline(input)) ) == 0);
-    
-    y = stringToInt(input, input_type, y);
-
-    /* get the `p` index of `x` */
-    do {
-        printf("\nType the position \"p\" (0...%d): ", INT_BIN_SIZE - 1);
-    } while ( ( p = atoi(getline(input)) ) < 0 || p > INT_BIN_SIZE - 1);
-
-    /* get the `n` number of bits to replace from `x` */
-    do {
-        printf("\nType the number of bits \"n\" (0...%d): ", p + 1);
-    } while ( ( n = atoi(getline(input)) ) < 0 || n > p + 1);
-
     /* calculation happens here */
-    result = setbits(x, p, n, y);
+    result = bitcount(x);
 
     /* displays input and output nicely formated */
     printf("\nx:\tHex: %X\n\tBin: %s\n\n", x, decToBin(x, output));
-    printf("y:\tHex: %X\n\tBin: %s\n\n", y, decToBin(y, output));
-    printf("Result:\tHex: %X\n\tBin: %s\n", result, decToBin(result, output));
+    printf("Number of 1-bits:\t%d\n", result); 
+
     return 0;
 }
 
 /* this is the function required by the exercise */
-unsigned setbits(unsigned int x, int p, int n, unsigned int y)
+int bitcount(unsigned x)
 {
-    unsigned int x_mask = ~0 << (p + 1) | ~(~0 << (p - n + 1));
-    unsigned int y_mask = ~(~0 << n);
-    y = (y & y_mask) << (p - n + 1);
-    x = x & x_mask;
-    return x | y;
+    int b = 0;
+
+    while (x != 0) {
+        x &= (x-1);
+        ++b;
+    }
+    
+    return b;
+
 }
 
 /* converts an integer into a binary string; returns pointer to resulting array 
