@@ -1,11 +1,10 @@
 /**
- * Exercise 2-6 - K&R 2nd ED
+ * Exercise 2-7 - K&R 2nd ED
  * =========================
  * > by ANK-dev
  *
- * setbits:  returns an `x` int with `n` bits at position `p` set to the
- *           rightmost `n` bits of an `y` int
- * -----------------------------------------------------------------------------
+ * invert:  returns `x` with `n` bits at position `p` inverted 
+ * -----------------------------------------------------------
  */
 
 #include <stdio.h>
@@ -19,7 +18,7 @@
 #define HEX_STRING_LEN (INT_HEX_SIZE + PREFIX)
 #define BIN_STRING_LEN (INT_BIN_SIZE + PREFIX)
 
-unsigned setbits(unsigned int x, int p, int n, unsigned int y);
+unsigned int invert(unsigned int x, int p, int n);
 char *decToBin(unsigned int dec, char bin[]);
 int validateInput(char in[]);
 char *getline(char s[]);
@@ -27,15 +26,14 @@ int stringToInt(char in[], int in_type, int var);
 
 int main()
 {
-    char output[INT_BIN_SIZE + PADDING + 1];
-    char input[BIN_STRING_LEN + 1];
     int input_type, p, n;
-    unsigned int x = 0, y = 0, result;
-    
-    printf("setbits\n=======\n\n");
-    printf("> returns an `x` int with `n` bits at position `p` set to the "
-           "rightmost `n` bits of an `y` int\n\n");
-    
+    unsigned int x = 0, result;
+    char input[BIN_STRING_LEN + 1];
+    char output[INT_BIN_SIZE + PADDING + 1];
+
+    printf("invert\n======\n");
+    printf("> returns an `x` int with `n` bits at position `p` inverted\n\n");
+
     /* get the `x` variable */
     do {
         printf("Type the \"x\" variable\n(0b for binary + %d digits, "
@@ -44,42 +42,30 @@ int main()
     
     x = stringToInt(input, input_type, x);
 
-    /* get the `y` variable */
-    do {
-        printf("\nType the \"y\" variable\n(0b for binary + %d digits, "
-            "0x for hexadecimal + %d digits): ", INT_BIN_SIZE, INT_HEX_SIZE);
-    } while (( input_type = validateInput(getline(input)) ) == 0);
-    
-    y = stringToInt(input, input_type, y);
-
-    /* get the `p` index of `x` */
+     /* get the `p` index of `x` */
     do {
         printf("\nType the position \"p\" (0...%d): ", INT_BIN_SIZE - 1);
     } while ( ( p = atoi(getline(input)) ) < 0 || p > INT_BIN_SIZE - 1);
 
-    /* get the `n` number of bits to replace from `x` */
+    /* get the `n` number of bits to invert from `x` */
     do {
         printf("\nType the number of bits \"n\" (0...%d): ", p + 1);
     } while ( ( n = atoi(getline(input)) ) < 0 || n > p + 1);
-
+    
     /* calculation happens here */
-    result = setbits(x, p, n, y);
+    result = invert(x, p, n);
 
     /* displays input and output nicely formated */
     printf("\nx:\tHex: %X\n\tBin: %s\n\n", x, decToBin(x, output));
-    printf("y:\tHex: %X\n\tBin: %s\n\n", y, decToBin(y, output));
     printf("Result:\tHex: %X\n\tBin: %s\n", result, decToBin(result, output));
+
     return 0;
 }
 
 /* this is the function required by the exercise */
-unsigned setbits(unsigned int x, int p, int n, unsigned int y)
+unsigned int invert(unsigned int x, int p, int n)
 {
-    unsigned int x_mask = ~0 << (p + 1) | ~(~0 << (p - n + 1));
-    unsigned int y_mask = ~(~0 << n);
-    y = (y & y_mask) << (p - n + 1);
-    x = x & x_mask;
-    return x | y;
+    return x ^ (~(~0 << n) << (p - n + 1));
 }
 
 /* converts an integer into a binary string; returns pointer to resulting array 

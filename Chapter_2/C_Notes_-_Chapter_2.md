@@ -618,14 +618,14 @@ iteração através do laço.
 Em C há seis operadores para manipulação de bits, sendo utilizáveis somente com
 `char`, `short`, `int` e `long`; `signed` ou `unsigned`.
 
-* `&`  → E-lógico bit-a-bit
-* `|`  → OU-lógico inclusivo bit-a-bit
-* `^`  → OU-lógico exclusivo bit-a-bit
+* `&`  → E-lógico bit-a-bit (AND)
+* `|`  → OU-lógico inclusivo bit-a-bit (OR)
+* `^`  → OU-lógico exclusivo bit-a-bit (XOR)
 * `<<` → shift à esquerda
 * `>>` → shift à direita
 * `~`  → complemento a um
 
-**E-lógico bit-a-bit (`&`)**: usado com frequência para mascarar uma certa
+**E-lógico bit-a-bit (`&`) (AND)**: usado com frequência para mascarar uma certa
 quantidade de bits.
 
     n = n & 0177;
@@ -646,12 +646,12 @@ quantidade de bits.
 
 <br>
 
-**OU-lógico bit-a-bit (`|`)**: usado para ligar bits.
+**OU-lógico bit-a-bit (`|`) (OR)**: usado para ligar bits.
 
     x = x | SET_ON;
 
              ────────────┬────────────
-         x =  1  0  1  0 │ 0  1  0  0
+         x =  1  0  1 (0)│ 0  1 (0)(0)
              ────────────┴────────────
               |  |  |  |   |  |  |  |
              ────────────┬────────────
@@ -662,26 +662,30 @@ quantidade de bits.
          x =  1  0  1 (1)│ 0  1 (1)(1)
              ────────────┴────────────
                        ↑        ↑   ↑
-                         bits ligados
+                        bits ligados
 
 <br>
 
-**OU-lógico exclusivo bit-a-bit (`^`)**: coloca um em cada posição onde os
-bits entre os operandos diferem, e zero onde eles são iguais.
+**OU-lógico exclusivo bit-a-bit (`^`) (XOR)**: coloca um em cada posição onde os
+bits entre os operandos diferem, e zero onde eles são iguais. Útil para inversão
+de bits associado a uma máscara: qualquer bit **XOR** com 1 resulta na inversão
+do mesmo; qualquer bit **XOR** com 0 resulta no próprio bit.
 
      diff = a ^ b;
 
            ────────────┬────────────┬────────────┬────────────
-       a =  1  1  0  1 │ 1  1  1  0 │ 1  0  1  0 │ 1  1  0  1
+       a = (1) 1 (0)(1)│(1)(1)(1) 0 │(1)(0)(1) 0 │(1)(1)(0)(1)
            ────────────┴────────────┴────────────┴────────────
             ^  ^  ^  ^   ^  ^  ^  ^   ^  ^  ^  ^   ^  ^  ^  ^
            ────────────┬────────────┬────────────┬────────────
-       b =  1  0  1  1 │ 1  1  1  0 │ 1  1  1  0 │ 1  1  1  1
+       b =  1  0  1  1 │ 1  1  1  0 │ 1  1  1  0 │ 1  1  1  1 
            ────────────┴────────────┴────────────┴────────────
             =  =  =  =   =  =  =  =   =  =  =  =   =  =  =  =
            ────────────┬────────────┬────────────┬────────────
-    diff =  0  1  1  0 │ 0  0  0  0 │ 0  1  0  0 │ 0  0  1  0
+    diff = (0) 1 (1)(0)│(0)(0)(0) 0 │(0)(1)(0) 0 │(0)(0)(1)(0)
            ────────────┴────────────┴────────────┴────────────
+            ↑     ↑  ↑   ↑  ↑  ↑      ↑  ↑  ↑      ↑  ↑  ↑  ↑
+                  somente estes bits foram invertidos
 
 --------------------------------------------------------------------------------
 
@@ -820,3 +824,70 @@ Por fim, temos:
 * [Exercise 2-8](./Exercise_2-8.c)
 
 --------------------------------------------------------------------------------
+
+### 2.10 Assignment Operators and Expressions
+
+Expressões como `i = i + 2` podem ser escritas em uma forma mais compacta usando
+operadores de atribuição (*assignment operators*), neste caso `i += 2`; estes
+possuem a seguinte forma:
+
+    expr₁ op= expr₂
+
+que é equivalente a:
+
+    expr₁ = (expr₁) op (expr₂)
+
+A maioria dos operadores binários possem um operador de atribuição da forma
+*op=*, onde *op* é um dos seguintes:
+
+* `+`
+* `-`
+* `*`
+* `/`
+* `%`
+* `<<`
+* `>>`
+* `&`
+* `^`
+* `|`
+
+Temos como exemplo a função `bitcount` que conta o número de bits 1 em seu
+argumento inteiro:
+
+~~~ C
+/* bitcount:  count 1 bits in x */
+int bitcount(unsigned x)
+{
+  int b;
+
+  for (b = 0; x != 0; x >>= 1)
+      if (x & 01)
+          b++;
+      return b;
+}
+~~~
+
+Uma pequena observação: o motivo de `x` ser declarado como `unsigned` é para
+garantir que quando ele sofrer um shift-à-direita, os bits vacantes sejam
+preenchidos como zeros, e não com bits de sinal, não importando em qual máquina
+este programa for executado.
+
+O uso de operadores de atribuição torna o código mais conciso e melhor
+representa a forma como pessoas normalmente pensam; além disso, potencialmente
+podem tornar expressões longas mais fáceis de serem compreendidas e ajudar um
+compilador a produzir código mais eficiente.
+
+Operadores de atribuição podem aparecer em expressões, onde o tipo da expressão
+de atribuição é o tipo do operando a esquerda e o seu valor é o valor após a
+atribuição.
+
+--------------------------------------------------------------------------------
+
+#### Exercícios 2.9
+
+* [Exercise 2-9](./Exercise_2-9.c)
+
+--------------------------------------------------------------------------------
+
+### 2.11 Conditional Expressions
+
