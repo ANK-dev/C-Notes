@@ -87,7 +87,7 @@ para todos esses tamanhos, além de outras propriedades da máquina e compilador
 
 #### Exercícios 2.2
 
-* [Exercise 2-1](./Exercise_2-1.c)
+* [Exercise 2-1](./Exercise_2-01.c)
 
 --------------------------------------------------------------------------------
 
@@ -360,7 +360,7 @@ mais complicadas podem ser mais difíceis de entender.
 
 #### Exercícios 2.6
 
-* [Exercise 2-2](./Exercise_2-2.c)
+* [Exercise 2-2](./Exercise_2-02.c)
 
 --------------------------------------------------------------------------------
 
@@ -546,7 +546,7 @@ void srand(unsigned int seed)
 
 #### Exercícios 2.7
 
-* [Exercise 2-3](./Exercise_2-3.c)
+* [Exercise 2-3](./Exercise_2-03.c)
 
 --------------------------------------------------------------------------------
 
@@ -608,8 +608,8 @@ iteração através do laço.
 
 #### Exercícios 2.8
 
-* [Exercise 2-4](./Exercise_2-4.c)
-* [Exercise 2-5](./Exercise_2-5.c)
+* [Exercise 2-4](./Exercise_2-04.c)
+* [Exercise 2-5](./Exercise_2-05.c)
 
 --------------------------------------------------------------------------------
 
@@ -819,9 +819,9 @@ Por fim, temos:
 
 #### Exercícios 2.9
 
-* [Exercise 2-6](./Exercise_2-6.c)
-* [Exercise 2-7](./Exercise_2-7.c)
-* [Exercise 2-8](./Exercise_2-8.c)
+* [Exercise 2-6](./Exercise_2-06.c)
+* [Exercise 2-7](./Exercise_2-07.c)
+* [Exercise 2-8](./Exercise_2-08.c)
 
 --------------------------------------------------------------------------------
 
@@ -885,7 +885,7 @@ atribuição.
 
 #### Exercícios 2.9
 
-* [Exercise 2-9](./Exercise_2-9.c)
+* [Exercise 2-9](./Exercise_2-09.c)
 
 --------------------------------------------------------------------------------
 
