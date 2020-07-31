@@ -7,11 +7,11 @@
 Regras de nomeação de variáveis e constantes simbólicas:
 
 * Nomes contém letras e números. O primeiro caractere **precisa** ser uma letra.
-* O *underscore* (`_`) é considerado uma letra, sendo assim útil para melhorar a
+* O _underscore_ (`_`) é considerado uma letra, sendo assim útil para melhorar a
   legibilidade de variáveis longas.
 * **NÃO** comece o nome de variáveis com `_`; muitas rotinas de bibliotecas usam
   nomes que começam com esse caractere.
-* O nome de variáveis é *case-sensitive*; `x` e `X` são variáveis distintas, por
+* O nome de variáveis é _case-sensitive_; `x` e `X` são variáveis distintas, por
   exemplo.
 * Prática tradicional em C:
   - variáveis → caixa baixa
@@ -31,7 +31,7 @@ Este parágrafo descreve uma característica do padrão ANSI C (C89/C90) que nã
 relevante a revisões mais atuais da linguagem.
 
 No ANSI C, nomes externos só são considerados únicos até 6 caracteres
-*case-insensitive*. Sendo assim, `afoobar` e `aFooBar` não são distintos, assim
+_case-insensitive_. Sendo assim, `afoobar` e `aFooBar` não são distintos, assim
 como `foobar1` e `foobar2` são consideradas declarações duplicadas, pois seus 6
 primeiros caracteres são idênticos.
 
@@ -95,20 +95,20 @@ para todos esses tamanhos, além de outras propriedades da máquina e compilador
 
 **Constante-inteira**:
 
-* Com sinal (*signed*):
+* Com sinal (_signed_):
   - `int` → `1234`
   - `long` → `123456789l` ou `123456789L` (inteiros muito grandes para um `int`
     são automaticamente interpretados como um `long`)
-* Sem sinal (*unsigned*):
+* Sem sinal (_unsigned_):
   - `int` → `1234u` ou `1234U`
   - `long` → `1234ul` ou `1234UL`
 * Base octal (prefixo `0`):
-  - `037` == 31 (*base 10*)
-  - Também podem ser *`unsigned`* (`037u`), *`long`* (`037l`) ou *ambos*
+  - `037` == 31 (_base 10_)
+  - Também podem ser _`unsigned`_ (`037u`), _`long`_ (`037l`) ou _ambos_
     (`037ul`)
 * Base hexadecimal (prefixo `0x` ou `0X`):
-  - (`0x1f` ou `0X1F`) == 31 (*base 10*)
-  - Também pode ser *`unsigned`* (`0x1Fu`), *`long`* (`0x1Fl`) ou *ambos*
+  - (`0x1f` ou `0X1F`) == 31 (_base 10_)
+  - Também pode ser _`unsigned`_ (`0x1Fu`), _`long`_ (`0x1Fl`) ou _ambos_
     (`0x1Ful`)
 
 **Constante de ponto-flutuante**:
@@ -120,7 +120,7 @@ para todos esses tamanhos, além de outras propriedades da máquina e compilador
 **Constante-caractere**:
 
 * `'x'` → inteiro com valor equivalente ao caractere no conjunto de caracteres
-  (*charset*) da máquina. Ex: `'0'` == 48 (*base 10*)
+  (_charset_) da máquina. Ex: `'0'` == 48 (_base 10_)
 * `'\ooo'` → sequência de escape octal, onde `ooo` são um a três dígitos octais
   (0…7)
 * `'\xhh'` → sequência de escape hexadecimal, onde `hh` são um ou dois dígitos
@@ -160,7 +160,7 @@ para todos esses tamanhos, além de outras propriedades da máquina e compilador
 `char line[MAXLINE + 1];`
 ~~~
 
-**Constante-string**: também conhecida como *string literal*, consiste em uma
+**Constante-string**: também conhecida como _string literal_, consiste em uma
   sequência de zero ou mais caracteres entre aspas duplas.
 
 * `"Eu sou uma string"`
@@ -206,7 +206,7 @@ enum months { JAN = 1, FEB, MAR, APR, MAY, JUN,
 Todas as variáveis precisam ser declaradas antes do uso. Algumas declarações
 podem ser feitas de maneira implícita pelo contexto.
 
-Uma declaração especifica um *tipo*, e contém uma ou mais variáveis daquele
+Uma declaração especifica um _tipo_, e contém uma ou mais variáveis daquele
 tipo.
 
 ~~~ C
@@ -214,7 +214,7 @@ char c;
 char line[1000];
 ~~~
 
-Uma variável também pode ser *inicializada* em sua declaração, dado o uso de um
+Uma variável também pode ser _inicializada_ em sua declaração, dado o uso de um
 sinal de igual (`=`) e uma expressão após o nome desta.
 
 ~~~ C
@@ -262,7 +262,7 @@ A divisão de inteiros sempre trunca a parte fracionária. O uso de `%` em
 x % y
 ~~~
 
-produz o *resto* da divisão de `x` por `y` (sendo zero no caso de divisão
+produz o _resto_ da divisão de `x` por `y` (sendo zero no caso de divisão
 exata).
 
 Um exemplo do uso de `%` é a determinação de um ano bissexto:
@@ -297,8 +297,8 @@ Precedência de operadores aritméticos:
   <b>&nbsp;&lt;&nbsp;</b> <code>+</code> e <code>-</code> (<em>unários</em>)
 </p>
 
-A associativiade de operadores aritméticos sempre se dá da *esquerda* para a
-*direita*.
+A associativiade de operadores aritméticos sempre se dá da _esquerda_ para a
+_direita_.
 
 ### 2.6 Relational and Logical Operators
 
@@ -313,7 +313,7 @@ A associativiade de operadores aritméticos sempre se dá da *esquerda* para a
 
 Expressões conectadas por `&&` ou `||` são avaliadas da esquerda para a direita,
 e a avaliação para assim que a verdade ou falsidade do resultado é conhecido. O
-nome desta característica é *curto-circuito* (*short-circuit*); a maioria dos
+nome desta característica é _curto-circuito_ (_short-circuit_); a maioria dos
 programas em C depende dessa propriedade.
 
 Exemplo:
@@ -428,7 +428,7 @@ Há um detalhe a respeito da conversão de caracteres em inteiros. A linguagem n
 especifica se `char`s são quantidades com sinal ou sem sinal. A conversão de um
 `char` em um `int` varia de máquina para máquina, tendo duas possibilidades:
 
-* *sign extension*: o bit mais a esquerda é copiado para os novos bits; `char` é
+* _sign extension_: o bit mais a esquerda é copiado para os novos bits; `char` é
   convertido em inteiro negativo.
 
   Ex.: Caractere Extended ASCII 234(dec) = "Ω"
@@ -449,7 +449,7 @@ especifica se `char`s são quantidades com sinal ou sem sinal. A conversão de u
         ↑   ↑   ↑   ↑   ↑   ↑   ↑   ↑
                 novos bits
 
-* *zero extension*: os novos bits são preenchidos com zero; `char` se mantém
+* _zero extension_: os novos bits são preenchidos com zero; `char` se mantém
   como inteiro positivo.
 
   Ex.: Caractere Extended ASCII 234(dec) = "Ω"
@@ -516,7 +516,7 @@ tipos também ocorrem quando argumentos são passados para funções. Caso não 
 um protótipo de função, `char` e `short` → `int`, `float` → `double`.
 
 Conversões de tipos explícitas podem ser forçadas ("coagidas") em qualquer
-expressão com o uso de um operador unário chamado de *cast*, que possue a
+expressão com o uso de um operador unário chamado de _cast_, que possue a
 seguinte estrutura:
 
     (type-name) expression
@@ -554,15 +554,15 @@ void srand(unsigned int seed)
 
 A linguagem C possui dois operadores para incremento e decremento de variáveis:
 
-* `++` → *incremento em 1*
+* `++` → _incremento em 1_
   - `x = ++n` → **pré**-incremento; se `n` = 5, então `x` = 6 e `n` = 6
   - `x = n++` → **pós**-incremento; se `n` = 5, então `x` = 5 e `n` = 6
-* `--` → *decremento em 1*
+* `--` → _decremento em 1_
   - `x = --n` → **pré**-decremento; se `n` = 5, então `x` = 4 e `n` = 4
   - `x = n--` → **pós**-decremento; se `n` = 5, então `x` = 5 e `n` = 4
 
 Em casos onde apenas o efeito do incremento/decremento importa, e não o valor em
-si, tanto a notação em *prefixo* quanto a em *pósfixo* possuem o mesmo
+si, tanto a notação em _prefixo_ quanto a em _pósfixo_ possuem o mesmo
 comportamento.
 
 Abaixo temos alguns exemplos de situações onde o uso da notação em prefixo ou
@@ -828,7 +828,7 @@ Por fim, temos:
 ### 2.10 Assignment Operators and Expressions
 
 Expressões como `i = i + 2` podem ser escritas em uma forma mais compacta usando
-operadores de atribuição (*assignment operators*), neste caso `i += 2`; estes
+operadores de atribuição (_assignment operators_), neste caso `i += 2`; estes
 possuem a seguinte forma:
 
     expr₁ op= expr₂
@@ -838,7 +838,7 @@ que é equivalente a:
     expr₁ = (expr₁) op (expr₂)
 
 A maioria dos operadores binários possem um operador de atribuição da forma
-*op=*, onde *op* é um dos seguintes:
+_op=_, onde _op_ é um dos seguintes:
 
 * `+`
 * `-`
@@ -891,3 +891,106 @@ atribuição.
 
 ### 2.11 Conditional Expressions
 
+Declarações (statements) como:
+
+~~~ C
+if (a > b)
+    z = a;
+else
+    z = b;
+~~~
+
+onde se calcula em `z` o máximo entre `a` e `b` podem ser reescritas como uma
+_expressão condicional_ utilizando-se o operador ternário (`?:`):
+
+    expr₁ ? expr₂ : expr₃
+
+onde a expressão _expr₁_ é avaliada. Caso verdadeira, _expr₂_ é avaliada e
+torna-se o valor da expressão condicional; caso contrário, _expr₃_ é avaliada e
+esta torna-se o valor da expressão condicional.
+
+Assim temos para o exemplo anterior:
+
+~~~ C
+z = (a > b) ? a : b;    /* z = max(a, b) */
+~~~
+
+Como toda expressão condicional é uma expressão, esta pode ser utilizada em
+qualquer lugar onde qualquer outra expressão pode ser utilizada.
+
+O uso de parênteses ao redor da _expr₁_ de uma expressão condicional não é
+necessário, porém é recomendado.
+
+Abaixo temos alguns exemplos do uso de expressões condicionais:
+
+~~~ C
+for (i = 0; i < n; i++)
+    printf("%6d%c", a[i], (i%10==9 || i==n-1) ? '\n' : ' ');
+~~~
+
+~~~ C
+printf("You have %d item%s.\n", n, n==1 ? "": "s");
+~~~
+
+--------------------------------------------------------------------------------
+
+#### Exercícios 2.11
+
+* [Exercise 2-10](./Exercise_2-10.c)
+
+--------------------------------------------------------------------------------
+
+### 2.12 Precedence and Order of Evaluation
+
+Abaixo temos a tabela de precedência e associativade de todos os operadores:
+
+| Operadores                                               | Associatividade         |
+| -------------------------------------------------------- | :---------------------: |
+| `()` `[]` `->` `.`                                       | esquerda para a direita |
+| `!` `-` `++` `--` `+` `-` `*` `&` `(`_type_`)` `sizeof`  | direita para a esquerda |
+| `*` `/` `%`                                              | esquerda para a direita |
+| `+` `-`                                                  | esquerda para a direita |
+| `<<` `>>`                                                | esquerda para a direita |
+| `<` `<=` `>` `>=`                                        | esquerda para a direita |
+| `==` `!=`                                                | esquerda para a direita |
+| `&`                                                      | esquerda para a direita |
+| `^`                                                      | esquerda para a direita |
+| `|`                                                      | esquerda para a direita |
+| `&&`                                                     | esquerda para a direita |
+| `||`                                                     | esquerda para a direita |
+| `?:`                                                     | direita para a esquerda |
+| `=` `+=` `-=` `*=` `/=` `%=` `&=` `^=` `\|=` `<<=` `>>=` | direita para a esquerda |
+| `,`                                                      | esquerda para a direita |
+
+**OBS**: `+`, `-`, e `*` unários possuem maior precedência que as formas
+binárias.
+
+A linguagem C não especifica a odem de avaliação dos operandos de um operador,
+(com exceção de `&&`, `||`, `?:`, e `,`), isto significa que em uma declaração
+como:
+
+~~~ C
+x = f() + g();
+~~~
+
+`f` pode ser avaliado antes de `g` e vice-versa.
+
+A ordem da avaliação de argumentos de uma função, ou do índice de um array
+também não são especificadas, o que significa que expressões como:
+
+~~~ C
+printf("%d %d\n", ++n, power(2, n));
+~~~
+
+e
+
+~~~ C 
+a[i] = i++;
+~~~
+
+podem causar apresentar diferentes resultados em diferentes compiladores, devido
+a **"efeitos colaterais"**: alguma variável é alterada como subproduto da
+avaliação de uma expressão.
+
+O ideal é sempre evitar de se escrever código que dependa apenas da ordem de
+avaliação das expressões.

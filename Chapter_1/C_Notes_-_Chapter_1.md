@@ -27,7 +27,7 @@ irá imprimir:
 
 Um programa em C consiste de funções e variáveis
 
-* Funções: Contém *declarações* que especificam as operações computacionais a
+* Funções: Contém _declarações_ que especificam as operações computacionais a
   serem realizadas.
 * Variáveis: armazenam valores usados durante a computação
 
@@ -107,12 +107,12 @@ Elementos do programa:
   executáveis.
   - Tipo `int`: indica que as variáveis listadas são números inteiros. A faixa
     de valores depende da máquina.
-    + `int`s de *16-bits*: entre *-32768* e *+32767*.
-    + `int`s de *32-bits*: entre *-2147483648* e *+2147483647*.
+    + `int`s de _16-bits_: entre _-32768_ e _+32767_.
+    + `int`s de _32-bits_: entre _-2147483648_ e _+2147483647_.
   - Tipo `float`: indica que as variáveis listadas são do tipo ponto-flutuante,
     i.e., números que podem possuir parte fracionária. Costumam ser quantidades
-    de *32-bits* com pelo menos *seis dígitos significativos* e magnitude de
-    valores entre *10^(-38)* e *10^38*.
+    de _32-bits_ com pelo menos _seis dígitos significativos_ e magnitude de
+    valores entre _10⁻³⁸_ e _10³⁸_.
 
 Dentre os diversos tipos de dados em C, podemos também citar:
 
@@ -271,8 +271,8 @@ valor é do tipo ponto-flutuante.
   do cálculo, **resultado é `float`**
 * 5/9.0: divisão de **`int` por `float`**, `int` é convertido em `float` antes
   do cálculo, **resultado é `float`**
-* 5/9: divisão de **`int` por `int`**, **resultado é `int`**. *Qualquer parte
-  fracionária é truncada!*
+* 5/9: divisão de **`int` por `int`**, **resultado é `int`**.
+  _Qualquer parte fracionária é truncada!_
 
 Apesar da conversão automática de `int`s em `float`s em operações aritméticas
 que misturem os tipos, é recomendado explicitar constantes do tipo ponto-
@@ -373,7 +373,7 @@ linha:
 #define name replacement_text
 ~~~
 
-define um *nome simbólico* ou *constante simbólica*. Qualquer ocorrência de
+define um _nome simbólico_ ou _constante simbólica_. Qualquer ocorrência de
 `name` será substituída por `replacement_text`.
 
 ~~~ C
@@ -510,8 +510,8 @@ main()
 }
 ~~~
 
-A declaração `++nc` apresenta um novo operador, `++`, que significa *incremento
-por um*; equivalente a `nc = nc + 1`. Mais detalhes no capítulo 2.
+A declaração `++nc` apresenta um novo operador, `++`, que significa
+_incremento por um_; equivalente a `nc = nc + 1`. Mais detalhes no capítulo 2.
 
 O programa de contagem de caracteres acumula sua contagem em um `long` ao invés
 de um `int`. `long`s são pelo menos 32-bits. Como em algumas máquinas o tipo
@@ -542,7 +542,7 @@ decimal do número.
 O corpo desse laço é vazio, pois todo o trabalho necessário já é realizado pelo
 teste e o incremento. As regras gramaticais do C requerem que a declaração `for`
 possua um corpo. O uso de um ponto-e-vírgula isolado, chamado de um
-*null statement* (declaração nula), satisfaz esse requerimento.
+_null statement_ (declaração nula), satisfaz esse requerimento.
 
 --------------------------------------------------------------------------------
 
@@ -582,8 +582,8 @@ Algumas observações podem ser feitas a respeito deste programa:
   deseja realizar uma comparação!
 * Um caractere escrito entre aspas simples representa um valor inteiro igual ao
   valor do caractere no conjunto de caracteres da máquina. Isto é conhecido como
-  um *character constant*. Por exemplo: `'A'` vale `65` na tabela ASCII.
-  Sequências de escape como `\n` também são *character constants* válidas; `\n`
+  um _character constant_. Por exemplo: `'A'` vale `65` na tabela ASCII.
+  Sequências de escape como `\n` também são _character constants_ válidas; `\n`
   equivale a `10` na tabela ASCII.
 
 --------------------------------------------------------------------------------
@@ -650,11 +650,11 @@ verdadeiro, a sua declaração é executada. Caso contrário somente a declaraç
 
 ##### Exercícios 1.5.4
 
-> *Exercise 1-11*: How would you test the word count program? What kinds of
+> _Exercise 1-11_: How would you test the word count program? What kinds of
 > input are most likely to uncover bugs if there are any?
 
 **R.**: A realização de testes de unidade pode ajudar a encontrar bugs ou casos
-previamente não considerados (*edge cases*). O uso de palavras grandes, pequenas
+previamente não considerados (_edge cases_). O uso de palavras grandes, pequenas
 e hifenizadas podem cobrir a maioria dos casos. Já para as condições de contorno
 pode-se testar:
 
@@ -759,7 +759,7 @@ será discutida no capítulo 4, é uma alternativa para essa construção.
 
 Uma função provê uma maneira conveniente de se encapsular alguma computação, que
 pode então ser usada sem se preocupar a respeito de sua implementação. Funções
-bem implementadas permitem ignorar *como* um trabalho é feito, saber *o quê* é
+bem implementadas permitem ignorar _como_ um trabalho é feito, saber _o quê_ é
 feito é suficiente.
 
 Como o C não possui um operador de exponenciação, iremos escrever uma função
@@ -795,8 +795,8 @@ int power(int base, int n){
 
 --------------------------------------------------------------------------------
 
-**OBS**: A linha `int power(int m, int n)` representa a *declaração* da função.
-O bloco de código na parte de baixo é a *definição* da função.
+**OBS**: A linha `int power(int m, int n)` representa a _declaração_ da função.
+O bloco de código na parte de baixo é a _definição_ da função.
 
 A partir da versão 1999 do padrão ISO C, é ilegal (uma violação de restrição)
 chamar uma função sem uma declaração visível; a declaração precisa preceder a
@@ -807,7 +807,7 @@ completa de `power()` antes da definição de `main()` (pois uma definição tam
 provê uma declaração), mas para casos mais complexos (como chamadas recursivas)
 frequentemente é necessário prover uma declaração separada.
 
-Para programas maiores, é comum coletar todas as *declarações* de funções em um
+Para programas maiores, é comum coletar todas as _declarações_ de funções em um
 arquivo de cabeçalho (`foo.h`, por exemplo), e as definições correspondentes em
 um arquivo fonte (`foo.c`, por exemplo). Uma diretiva `#include "foo.h"` é usada
 para fazer as declarações visíveis em outros arquivos. Isto é frequentemente
@@ -875,7 +875,7 @@ retornado ao ambiente de execução do programa. Por costume:
 * retorno == 0 → terminação normal
 * retorno != 0 → erro ou condição não-usual de terminação.
 
-A declaração `int power(int base, int n);` é um *protótipo de função*. Ela diz a
+A declaração `int power(int base, int n);` é um _protótipo de função_. Ela diz a
 `main` que `power` é uma função que espera dois argumentos `int` e retorna um
 `int`. Este protótipo tem que concordar com a definição e usos de `power`, caso
 contrário isto é considerado um erro.
@@ -920,7 +920,7 @@ a `n` dentro de `power` não tem efeito no argumento original.
 
 Caso seja necessário, é possível fazer uma função modificar diretamente o valor
 de uma variável. Neste caso, a chamada deve prover o endereço da variável (um
-*ponteiro* para a variável) e a função deve declarar seu argumento como do tipo
+_ponteiro_ para a variável) e a função deve declarar seu argumento como do tipo
 ponteiro. Ponteiros são cobertos no Capítulo 5.
 
 Isto é diferente para vetores. Quando um vetor é usado como argumento de uma
@@ -996,7 +996,7 @@ função o tamanho limite do vetor de entrada.
 Funções que não possuem um valor de retorno, são do tipo `void`, como é o caso
 de `copy`.
 
-`getline` coloca o caractere `'\0'` (o *caractere nulo*, cujo valor é zero) no
+`getline` coloca o caractere `'\0'` (o _caractere nulo_, cujo valor é zero) no
 final do vetor que este cria, determinando, assim, o final da sequência de
 caracteres.
 
@@ -1038,7 +1038,7 @@ outra função pode ter acesso direto a elas (`line`, `longest`, etc só são
 acessíveis em `main`). Varíaveis com o mesmo nome em diferentes funções (como
 `i` em `getline` e `i` em `copy`) também não possuem relação entre si. Variáveis
 só existem enquanto a função é chamada, desaparecendo após a sua saída; estas
-possuem o nome de *variáveis automáticas*.
+possuem o nome de _variáveis automáticas_.
 
 Variáveis automáticas não retem seu valor entre chamadas, sendo necessário a
 definição de seus valores a cada chamada, caso contrário, elas irão conter lixo.
@@ -1050,9 +1050,9 @@ existência permanentemente, mantendo assim seus valores.
 
 Uso de uma variável externa:
 
-* *definição*: necessária uma única vez, fora de qualquer função,
+* _definição_: necessária uma única vez, fora de qualquer função,
   **reserva espaço para a variável**.
-* *declaração*: uma variável também precisa ser declarada em cada função que
+* _declaração_: uma variável também precisa ser declarada em cada função que
   quer acessá-la; isto determina o tipo da variável, **espaço não é alocado**. A
   declaração pode ser um `extern` explícito ou ser implícito do contexto.
 
@@ -1130,9 +1130,9 @@ função, então não é necessário o uso de `extern`. Neste exemplo, o uso des
 declaração se faz redundante.
 
 No caso de um programa que é dividido entre vários arquivos, se uma variável é
-declara em um *arquivo1* e usada no *arquivo2* e *arquivo3*, as declarações
+declara em um _arquivo1_ e usada no _arquivo2_ e _arquivo3_, as declarações
 `extern` se fazem necessárias. O mais comum é agrupar todas as declarações
-`extern` de variáveis e funções em um arquivo separado, conhecido como *header*,
+`extern` de variáveis e funções em um arquivo separado, conhecido como _header_,
 incluído com um `#include` no início de cada arquivo fonte (Ex: `<stdio.h>`).
 
 As versões especializadas de `getline` e `copy` não possuem argumentos, mas usam
