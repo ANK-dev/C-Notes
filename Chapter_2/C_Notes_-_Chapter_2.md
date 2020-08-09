@@ -984,7 +984,7 @@ printf("%d %d\n", ++n, power(2, n));
 
 e
 
-~~~ C 
+~~~ C
 a[i] = i++;
 ~~~
 

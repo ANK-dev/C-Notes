@@ -833,8 +833,8 @@ int power();                    /* uma declaração mas não um protótipo */
 declaração individual.)
 
 Como um caso especial, o protótipo para uma função sem parâmetros usa `(void)`,
-pois parênteses vazios já indicam uma declaração não-prototípica. Então `int
-main(void)` é um protótipo, mas `int main()` não é.
+pois parênteses vazios já indicam uma declaração não-prototípica. Então
+`int main(void)` é um protótipo, mas `int main()` não é.
 
 Declarações não-prototípicas são "obsolescentes", o que significa que elas podem
 em teoria ser removidas em um futuro padrão da linguagem. Mas elas são
@@ -851,10 +851,10 @@ achou apropriado removê-las.
 Definições de funções podem aparecer em qualquer ordem, em um arquivo fonte ou
 vários, apesar de nenhuma função poder ser dividida entre arquivos.
 
-A função `power` é chamada duas vezes por `main`, na linha `printf("%d %d %d\n",
-i, power(2,i), power(-3,i));`. As chamadas de `power` como argumento no `printf`
-tem tipo inteiro (`%d`) pois a função `power`, como previamente declarada, tem
-como retorno um `int`.
+A função `power` é chamada duas vezes por `main`, na linha
+`printf("%d %d %d\n", i, power(2,i), power(-3,i));`. As chamadas de `power` como
+argumento no `printf` tem tipo inteiro (`%d`) pois a função `power`, como
+previamente declarada, tem como retorno um `int`.
 
 * Variável → argumento real
 * Parâmetro → argumento formal
