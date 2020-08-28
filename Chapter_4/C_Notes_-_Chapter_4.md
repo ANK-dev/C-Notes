@@ -15,7 +15,7 @@ Dado o seguinte conjunto de linhas:
     Would not we shatter it to bits -- and then
     Re-mould it nearer to the Heart's Desire!
 
-o padrão de letras "`ould`" irá produzir a saída
+o padrão de letras "`ould`" irá produzir a saída:
 
     Ah Love! could you and I with Fate conspire
     Would not we shatter it to bits -- and then
@@ -60,8 +60,8 @@ main()
 
     while (getline(line, MAXLINE) > 0)
         if (strindex(line, pattern) >= 0) {
-              printf("%s", line);
-              found++;
+            printf("%s", line);
+            found++;
         }
     return found;
 }
@@ -110,7 +110,7 @@ que não faz nada e não retorna nada. Uma função faz-nada como esta as vezes 
 útil como um placeholder durante o desenvolvimento de um programa. Se o tipo de
 retorno é omitido, `int` é assumido.
 
-Um progrma é apenas um conjunto de definições de variáveis e funções. A
+Um programa é apenas um conjunto de definições de variáveis e funções. A
 comunicação entre funções ocorre através de argumentos e valores retornados
 pelas funções, e por variáveis externas. Funções podem aparecer em qualquer
 ordem no arquivo fonte, e o programa fonte pode ser dividido em múltiplos
@@ -127,22 +127,18 @@ opcionais.
 
 A função chamante é livre para ignorar o valor retornado. Além disso, não é
 necessário haver uma expressão após `return`; neste caso, nenhum valor é
-retornado ao chamante. O controle tamém retorna ao chamante sem nenhum valor se
-a execução "cai além do final" da função ao chegar no fecha chaves direito. Não
-é ilegal, mas provavelmente é um sinal de problemas, se a função retorna um
-valor de um lugar e nenhum valor de outro. Em qualquer caso, se uma função não
+retornado ao chamante. O controle também retorna ao chamante sem nenhum valor se
+a execução "cai do final" da função ao chegar no fecha chaves direito. Não é
+ilegal, mas provavelmente é um sinal de problemas, se a função retorna um valor
+de um lugar e nenhum valor de outro. Em qualquer caso, se uma função não
 retornar um valor, seu "valor" com certeza será lixo.
 
 O programa de busca de padrões retorna um status a partir da `main`, o número de
 correspondências encontradas. Este valor está disponível para uso pelo ambiente
 que chamou o programa.
 
-<!-- ENXUGAR SEÇÃO ACIMA -->
-
---------------------------------------------------------------------------------
-
 Para a compilação de um programa C em um sistema UNIX, usa-se o comando `cc`
-previamente mencionado no capítulo 1. Dado que as funções do programa estejam em
+previamente mencionado no Capítulo 1. Dado que as funções do programa estejam em
 arquivos separados `main.c`, `getline.c`, e `strindex.c`, o comando:
 
     cc main.c getline.c strindex.c
@@ -162,3 +158,5 @@ individualmente em conjunto com os arquivos de objeto anteriores, com o comando:
 * [Exercise 4-1](./Exercise_4-01.c)
 
 --------------------------------------------------------------------------------
+
+### 4.2 Functions Retuning Non-Integers
