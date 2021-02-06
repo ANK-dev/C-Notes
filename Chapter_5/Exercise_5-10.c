@@ -204,6 +204,11 @@ int getop(char *argv[])
 	if (strcmp(*argv, "+") == 0 || strcmp(*argv, "-") == 0)
 		return **argv;
 
+	/* unary operators */
+	if (**argv == '+' || **argv == '-') {
+		return NUMBER;
+	}
+
 	/* other operators */
 	if (!isdigit(**argv) && **argv != '.')
 		return **argv;    /* not a number */
